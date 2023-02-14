@@ -10,7 +10,7 @@ public class CellsSpawner : MonoBehaviour
     private float _y = 3;
     private void Start()
     {
-        HardLevel();
+        Easylevel();
 
     }
 
@@ -20,7 +20,7 @@ public class CellsSpawner : MonoBehaviour
         {
             var cell = Instantiate(_cell);
             _cell.transform.position = new Vector3(_x, 0, 0);
-            _x += 5;
+            _x += 3;
         }
     }
     

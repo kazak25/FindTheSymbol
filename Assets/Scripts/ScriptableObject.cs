@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class ScriptableObject : MonoBehaviour
 {
-    [SerializeField] private List<Sprite> _cars;
-    [SerializeField] private List<Sprite> _letters;
-    [SerializeField] private List<Sprite> _numbers;
+    [SerializeField] public List<Sprite> _cars;
+    [SerializeField] public List<Sprite> _letters;
+    [SerializeField] public List<Sprite> _numbers;
+
+   
 }
