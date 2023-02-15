@@ -5,16 +5,21 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class GameController : MonoBehaviour
 {
   [SerializeField] private ScriptableObject _scriptable;
   [SerializeField] private GameObject _gameObject;
   [SerializeField] private GameObject _iconName;
+  [SerializeField] private GameObject _setSelection;
+  
+  private CellsSpawner _cellsSpawner;
   private List<string> _names = new List<string>();
   private List<Sprite> _icons = new List<Sprite>();
   private List<GameObject> _gameObjects = new List<GameObject>();
-  private float _x = -5;
+  private float _x = -3;
   
   private void Awake()
   {
@@ -29,14 +34,14 @@ public class GameController : MonoBehaviour
 
   private void Start()
   {
-      SetSelection();
+      // SetSelection();
   }
 
   private void SetSelection()
   {
     for (var i = 0; i < _icons.Count; i++)
     {
-      var gameObject = Instantiate(_gameObject,transform);
+      var gameObject = Instantiate(_gameObject,_setSelection.transform);
       var iconName = Instantiate(_iconName,transform);
       iconName.transform.parent = gameObject.transform;
       var sprite = gameObject.GetComponent<SpriteRenderer>();
@@ -45,7 +50,43 @@ public class GameController : MonoBehaviour
       _gameObjects.Add(gameObject);
       var textUI = iconName.GetComponent<TextMeshProUGUI>();
       textUI.text = _names[i];
-      _x += 5;
+      gameObject.name = _names[i];
+      _x += 3;
+      
     }
+  }
+
+  private void StartGame(List<Sprite> _sprites)
+  {
+    _cellsSpawner.Easylevel(_sprites);
+  }
+
+  public List<Sprite> SpritesRandom(List<Sprite> _sprites, int cellCount)
+  {
+    List<Sprite> _tempSprites = new List<Sprite>();
+    for (int i = 0; i < cellCount; i++)
+    {
+      var count = 0;
+      var index = Random.Range(0, _sprites.Count);
+      var tempsprite = _sprites[index];
+      if (_tempSprites.Count == 0)
+      {
+        _tempSprites.Add(tempsprite);
+        continue;
+      }
+      for ( int k = 0; k < _tempSprites.Count; k++)
+      {
+        if (tempsprite == _tempSprites[k])
+        {
+          i--;
+          count = 1;
+        }
+      }
+      if (count == 0)
+      {
+        _tempSprites.Add(tempsprite); 
+      }
+    }
+    return _tempSprites;
   }
 }

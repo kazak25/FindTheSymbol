@@ -5,22 +5,38 @@ using UnityEngine;
 
 public class CellsSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _cell;
-    private float _x = -3;
+    [SerializeField] 
+    private GameObject _cell;
+    
+    [SerializeField]
+    private GameController _gameController;
+    
+    [SerializeField]
+    private ScriptableObject _scriptableObject;
+
+    [SerializeField]
+    private GameObject _gameObject;
+    
+    private float _x = -5;
     private float _y = 3;
     private void Start()
     {
-        Easylevel();
-
+        Easylevel(_scriptableObject._cars);
     }
 
-    private void Easylevel()
+    public void Easylevel(List<Sprite> _sprites)
     {
+       var tempSprite= _gameController.SpritesRandom(_sprites, 3);
         for (int i = 0; i < 3; i++)
         {
-            var cell = Instantiate(_cell);
-            _cell.transform.position = new Vector3(_x, 0, 0);
-            _x += 3;
+            var cell = Instantiate(_cell,transform);
+            cell.transform.position = new Vector3(_x, 0, 0);
+            var gameObject = Instantiate(_gameObject,cell.transform);
+            var sprite = gameObject.GetComponent<SpriteRenderer>();
+            sprite.sprite = tempSprite[i];
+           
+            gameObject.transform.position = new Vector3(_x, 0, 0);
+            _x += 5;
         }
     }
     
@@ -30,7 +46,7 @@ public class CellsSpawner : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                var cell = Instantiate(_cell);
+                var cell = Instantiate(_cell,transform);
                 _cell.transform.position = new Vector3(_x, _y, 0);
                 _x += 3;
             }
@@ -45,7 +61,7 @@ public class CellsSpawner : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                var cell = Instantiate(_cell);
+                var cell = Instantiate(_cell,transform);
                 _cell.transform.position = new Vector3(_x, _y, 0);
                 _x += 3;
             }

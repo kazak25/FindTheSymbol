@@ -421,7 +421,6 @@ GameObject:
   - component: {fileID: 927349255}
   - component: {fileID: 927349254}
   - component: {fileID: 927349253}
-  - component: {fileID: 927349256}
   - component: {fileID: 927349257}
   m_Layer: 0
   m_Name: Background
@@ -495,19 +494,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &927349256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927349252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7a44b82f4cf56f4e9c6512b943f7f2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cell: {fileID: 3497461693565996464, guid: 3b01d8e37b668de4ba7e6a9c002ee368, type: 3}
 --- !u!114 &927349257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,6 +564,8 @@ GameObject:
   - component: {fileID: 1266187602}
   - component: {fileID: 1266187601}
   - component: {fileID: 1266187605}
+  - component: {fileID: 1266187606}
+  - component: {fileID: 1266187607}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -682,3 +670,33 @@ MonoBehaviour:
   _scriptable: {fileID: 927349257}
   _gameObject: {fileID: 1415478785181191919, guid: e805f3a971972d34bb4d23607045b1cb, type: 3}
   _iconName: {fileID: 181627901493114927, guid: 7b51d3024d64727469f5c4fa467f4726, type: 3}
+  _setSelection: {fileID: 0}
+--- !u!114 &1266187606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266187600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 519f2fbd586987642899d7a40f331f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _setSelection: {fileID: 0}
+--- !u!114 &1266187607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266187600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7a44b82f4cf56f4e9c6512b943f7f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cell: {fileID: 7684138060517826032, guid: 3b01d8e37b668de4ba7e6a9c002ee368, type: 3}
+  _gameController: {fileID: 0}
+  _scriptableObject: {fileID: 0}
+  _gameObject: {fileID: 0}

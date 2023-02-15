@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using JetBrains.Annotations;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.UIElements;
@@ -10,7 +11,8 @@ using UnityEngine.UIElements;
 
 public class RayCast : MonoBehaviour
 {
-    
+    [SerializeField] private GameObject _setSelection;
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -25,15 +27,33 @@ public class RayCast : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 10000))
         {
-            if (hit.collider.gameObject.CompareTag("Icon"))
+            var name = hit.collider.gameObject.name;
+            switch (name)
             {
-                var children = gameObject.transform.Find("IconName");
-                if (children.CompareTag("car"))
+                case "Cars": 
                 {
-                    Debug.Log("Нашел!");
+                    _setSelection.SetActive(false);
+                    Debug.Log("Cars(Clone)");
+                    break;
+                }
+                case "Letters": 
+                {
+                    _setSelection.SetActive(false);
+                    Debug.Log("Letters(Clone)");
+                    break;
+                }
+                case "Numbers": 
+                {
+                    _setSelection.SetActive(false);
+                    Debug.Log("Numbers(Clone)");
+                    break;
                 }
             }
-
+            
+            
         }
     }
+    
+    
+    
 }
