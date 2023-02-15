@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour
     _names.Add("Cars");
     _names.Add("Letters");
     _names.Add("Numbers");
+    Debug.Log("КУКУ");
   }
 
   private void Start()
