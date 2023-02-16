@@ -29,12 +29,11 @@ public class GameController : MonoBehaviour
     _names.Add("Cars");
     _names.Add("Letters");
     _names.Add("Numbers");
-    Debug.Log("КУКУ");
   }
 
   private void Start()
   {
-      // SetSelection();
+      SetSelection();
   }
 
   private void SetSelection()
@@ -42,14 +41,21 @@ public class GameController : MonoBehaviour
     for (var i = 0; i < _icons.Count; i++)
     {
       var gameObject = Instantiate(_gameObject,_setSelection.transform);
-      var iconName = Instantiate(_iconName,transform);
-      iconName.transform.parent = gameObject.transform;
+      var iconName = Instantiate(_iconName,_setSelection.transform);
       var sprite = gameObject.GetComponent<SpriteRenderer>();
       sprite.sprite = _icons[i];
       gameObject.transform.position = new Vector3(_x, 0f, 0f);
+      iconName.transform.position = new Vector3(_x, -2f, 0f);
+      var scale = gameObject.GetComponent<RectTransform>();
+      scale.sizeDelta = new Vector2(5, 5);
+      scale.localScale = new Vector3(3, 3, 0);
+      var textScale = iconName.GetComponent<RectTransform>();
+      textScale.sizeDelta = new Vector2(5, 5);
+      textScale.localScale = new Vector3(2, 2,0);
       _gameObjects.Add(gameObject);
       var textUI = iconName.GetComponent<TextMeshProUGUI>();
       textUI.text = _names[i];
+      textUI.fontSize = 2;
       gameObject.name = _names[i];
       _x += 3;
       
@@ -58,7 +64,7 @@ public class GameController : MonoBehaviour
 
   private void StartGame(List<Sprite> _sprites)
   {
-    _cellsSpawner.Easylevel(_sprites);
+    _cellsSpawner.Easylevel(_sprites,3);
   }
 
   public List<Sprite> SpritesRandom(List<Sprite> _sprites, int cellCount)
@@ -88,5 +94,5 @@ public class GameController : MonoBehaviour
       }
     }
     return _tempSprites;
-  }
+  } 
 }
