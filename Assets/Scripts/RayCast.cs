@@ -17,8 +17,13 @@ public class RayCast : MonoBehaviour
     [SerializeField] private ScriptableObject _scriptableObject;
     [SerializeField] private CellsSpawner _cellsSpawner;
     [SerializeField] private GameMode _gameMode;
+    [SerializeField] private StateMachine _stateMachine;
+    [SerializeField] private Easy _easyLevelState;
+    [SerializeField] private Medium _mediumLevelState;
+    [SerializeField] private Hard _hardLevelState;
     public UnityEvent _PlayMode;
     private bool _isGameActive = false;
+    private int _levelNumber;
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -26,7 +31,12 @@ public class RayCast : MonoBehaviour
             Raycast();
         }
     }
-    
+
+    private void Start()
+    {
+        _stateMachine = new StateMachine(_easyLevelState,_mediumLevelState,_hardLevelState);
+    }
+
     private void Raycast()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -38,10 +48,28 @@ public class RayCast : MonoBehaviour
             if (_isGameActive == true && hit.collider.gameObject.name == _gameMode.tempName )
             {
                 Debug.Log("Мдээээ");
+                _levelNumber++;
+                ChangeLevel(_levelNumber);
             }
-            
-            
-            
+        }
+    }
+
+    private void ChangeLevel(int n)
+    {
+        switch (n)
+        {
+            case 1:
+            {
+                _stateMachine.Enter<Medium>();
+                break;
+            }
+            case 2:
+            {
+                _stateMachine.Enter<Hard>();
+                break;
+            }
+           default: return;
+               
         }
     }
 
@@ -53,7 +81,10 @@ public class RayCast : MonoBehaviour
             case "Cars": 
             {
                 _setSelection.SetActive(false);
-                _cellsSpawner.Easylevel(_scriptableObject._cars,3);
+                _easyLevelState.Array(_scriptableObject._cars);
+                _mediumLevelState.Array(_scriptableObject._cars);
+                _hardLevelState.Array(_scriptableObject._cars);
+                _stateMachine.Enter<Easy>();
                 _PlayMode.Invoke();
                 _isGameActive = true;
                 break;
@@ -61,7 +92,10 @@ public class RayCast : MonoBehaviour
             case "Letters": 
             {
                 _setSelection.SetActive(false);
-                _cellsSpawner.Easylevel(_scriptableObject._letters,3);
+                _easyLevelState.Array(_scriptableObject._letters);
+                _mediumLevelState.Array(_scriptableObject._letters);
+                _hardLevelState.Array(_scriptableObject._letters);
+                _stateMachine.Enter<Easy>();
                 _PlayMode.Invoke();
                 _isGameActive = true;
                 break;
@@ -69,7 +103,10 @@ public class RayCast : MonoBehaviour
             case "Numbers": 
             {
                 _setSelection.SetActive(false);
-                _cellsSpawner.Easylevel(_scriptableObject._numbers,3);
+                _easyLevelState.Array(_scriptableObject._numbers);
+                _mediumLevelState.Array(_scriptableObject._numbers);
+                _hardLevelState.Array(_scriptableObject._numbers);
+                _stateMachine.Enter<Easy>();
                 _PlayMode.Invoke();
                 _isGameActive = true;
                 break;

@@ -18,12 +18,13 @@ public class CellsSpawner : MonoBehaviour
     private GameObject _gameObject;
 
     [SerializeField] private GameMode _playMode;
+    [SerializeField] private GameObject _currentLevel;
     
     private float _x = -5;
     private float _y = 0;
     private void Start()
     {
-        // Easylevel(_scriptableObject._cars);
+        // Easylevel(_scriptableObject._cars,3);
         // MediumLevel(_scriptableObject._cars);
         // HardLevel(_scriptableObject._cars);
     }
@@ -35,7 +36,7 @@ public class CellsSpawner : MonoBehaviour
        
         for (int i = 0; i < 3; i++)
         {
-            var cell = Instantiate(_cell,transform);
+            var cell = Instantiate(_cell,_currentLevel.transform);
             cell.transform.position = new Vector3(_x, 0, 0);
             var gameObject = Instantiate(_gameObject,cell.transform);
             var sprite = gameObject.GetComponent<SpriteRenderer>();
@@ -47,8 +48,10 @@ public class CellsSpawner : MonoBehaviour
         }
     }
     
-    private void MediumLevel(List<Sprite> _sprites)
+    public void MediumLevel(List<Sprite> _sprites,int i1)
     {
+        _x = -5;
+        _y = 1;
         var tempSprite= _gameController.SpritesRandom(_sprites, 6);
         _playMode.Initialize(tempSprite);
         int spriteNumber = 0;
@@ -57,7 +60,7 @@ public class CellsSpawner : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                
-                var cell = Instantiate(_cell,transform);
+                var cell = Instantiate(_cell,_currentLevel.transform);
                 cell.transform.position = new Vector3(_x, _y, 0);
                 var gameObject = Instantiate(_gameObject,cell.transform);
                 var sprite = gameObject.GetComponent<SpriteRenderer>();
@@ -68,12 +71,14 @@ public class CellsSpawner : MonoBehaviour
                 spriteNumber++;
             }
             _x = -5;
-            _y -= 3;
+            _y -= 2;
         }
        
     }
-    private void HardLevel(List<Sprite> _sprites)
+    public void HardLevel(List<Sprite> _sprites,int i1)
     {
+        _x = -5;
+        _y = 3;
         var tempSprite= _gameController.SpritesRandom(_sprites, 9);
         _playMode.Initialize(tempSprite);
         int spriteNumber = 0;
@@ -81,7 +86,7 @@ public class CellsSpawner : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                var cell = Instantiate(_cell,transform);
+                var cell = Instantiate(_cell,_currentLevel.transform);
                 cell.transform.position = new Vector3(_x, _y, 0);
                 var gameObject = Instantiate(_gameObject,cell.transform);
                 var sprite = gameObject.GetComponent<SpriteRenderer>();
