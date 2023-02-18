@@ -5,6 +5,8 @@ public class Hard : MonoBehaviour,StateMachine.Istate
 {
     [SerializeField] private CellsSpawner _hardLevel;
     [SerializeField] private GameObject _currentLevel;
+    [SerializeField] private GameController _gameController;
+    
     private StateMachine _stateMachine;
     private List<Sprite> _sprites = new List<Sprite>();
 
@@ -20,16 +22,11 @@ public class Hard : MonoBehaviour,StateMachine.Istate
     
     public void Enter()
     {
-        _hardLevel.HardLevel(_sprites,9);
+        _hardLevel.HardLevel(_sprites);
     }
 
     public void Exit()
     {
-        var s = _currentLevel.transform; // Получаем ссылку на родительский объект
-
-        foreach (Transform child in s) // Проходимся по всем дочерним объектам
-        {
-            Destroy(child.gameObject); // Удаляем каждый из них
-        }
+        _gameController.ChildrenDelete(_currentLevel);
     }
 }

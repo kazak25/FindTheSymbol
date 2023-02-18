@@ -1,39 +1,36 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using DG.Tweening;
 using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
-using Random = System.Random;
+using Color = System.Drawing.Color;
+using Random = UnityEngine.Random;
 
-public class GameMode : MonoBehaviour
+public class TaskSelection : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
 
-    private List<Sprite> _sprites=new List<Sprite>();
-    private List<String> _spritesNames=new List<string>();
+    private List<Sprite> _sprites = new List<Sprite>();
+    private readonly List<String> _spritesNames = new List<string>();
+    
+    private TextMeshPro _textName;
     public string tempName { get ; private set; }
-    private void Update()
-    {
-        
-    }
+   
     [UsedImplicitly]
     public void SearchObject()
     {
         var randomIndex = RandomName();
         tempName = _sprites[randomIndex].name;
 
-        while (_spritesNames.Equals(tempName))
+        while (_spritesNames.Contains(tempName))
         {
             randomIndex = RandomName();
             tempName = _sprites[randomIndex].name;
         }
         _spritesNames.Add(tempName);
-        
-        _text.text =  "Find " + tempName;
-            
-
+        UnityEngine.Color tempColor = Random.ColorHSV();
+        _text.color = tempColor;
+        _text.text = "Find " + tempName;
     }
 
     public void ListNameClear()
@@ -43,7 +40,7 @@ public class GameMode : MonoBehaviour
 
     private int RandomName()
     {
-      return  UnityEngine.Random.Range(0,_sprites.Count);
+      return  Random.Range(0,_sprites.Count);
     }
     public void Initialize(List<Sprite> sprites)
     {

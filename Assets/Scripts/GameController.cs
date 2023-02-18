@@ -1,39 +1,47 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
+using JetBrains.Annotations;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-  [SerializeField] private ScriptableObject _scriptable;
+  public UnityEvent _PlayMode;
+  
+  [SerializeField] private ScriptableObject _scriptableObject;
+  
+  [SerializeField] private StateMachine _stateMachine;
+   
+  [SerializeField] private Easy _easyLevelState;
+  [SerializeField] private Medium _mediumLevelState;
+  [SerializeField] private Hard _hardLevelState;
+  
   [SerializeField] private GameObject _gameObject;
   [SerializeField] private GameObject _iconName;
   [SerializeField] private GameObject _setSelection;
+  [SerializeField] public GameObject _nextLevelbutton;
+  [SerializeField] public GameObject _restartButton;
   
-  private CellsSpawner _cellsSpawner;
-  private List<string> _names = new List<string>();
+  [SerializeField] private CanvasGroup _canvasGroup;
+  
+  public bool _isGameActive = false; 
+  public bool isLastLevel = false;
+  public bool _isWinCondition = false;
   private List<Sprite> _icons = new List<Sprite>();
   private List<GameObject> _gameObjects = new List<GameObject>();
+  public int _levelNumber;
   private float _x = -3;
-  
-  private void Awake()
-  {
-    _icons.Add(_scriptable._cars.First());
-    _icons.Add(_scriptable._letters.First());
-    _icons.Add(_scriptable._numbers.First());
-    _names.Add("Cars");
-    _names.Add("Letters");
-    _names.Add("Numbers");
-  }
 
   private void Start()
   {
-      SetSelection();
+    _stateMachine = new StateMachine(_easyLevelState, _mediumLevelState, _hardLevelState);
+    BlackOut();
+    AddStartIcons();
+    SetSelection();
   }
 
   private void SetSelection()
@@ -54,19 +62,35 @@ public class GameController : MonoBehaviour
       textScale.localScale = new Vector3(2, 2,0);
       _gameObjects.Add(gameObject);
       var textUI = iconName.GetComponent<TextMeshProUGUI>();
-      textUI.text = _names[i];
+      textUI.text = _scriptableObject._allObjectsNames[i];
       textUI.fontSize = 2;
-      gameObject.name = _names[i];
+      gameObject.name = _scriptableObject._allObjectsNames[i];
       _x += 3;
-      
     }
   }
-
-  private void StartGame(List<Sprite> _sprites)
+  [UsedImplicitly]
+  public void ChangeLevel()
   {
-    _cellsSpawner.Easylevel(_sprites,3);
+    switch (_levelNumber)
+    {
+      case 1:
+      {
+        _stateMachine.Enter<Medium>();
+        _nextLevelbutton.SetActive(false);
+        _PlayMode.Invoke();
+        break;
+      }
+      case 2:
+      {
+        isLastLevel = true;
+        _stateMachine.Enter<Hard>();
+        _nextLevelbutton.SetActive(false);
+        _PlayMode.Invoke();
+        break;
+      }
+      default: return;
+    }
   }
-
   public List<Sprite> SpritesRandom(List<Sprite> _sprites, int cellCount)
   {
     List<Sprite> _tempSprites = new List<Sprite>();
@@ -94,5 +118,68 @@ public class GameController : MonoBehaviour
       }
     }
     return _tempSprites;
-  } 
+  }
+  public void ObjectsSelection(string name)
+  {
+    switch (name)
+    {
+      case "Cars": 
+      {
+        StartGame(_scriptableObject._cars);
+        break;
+      }
+      case "Letters": 
+      {
+        StartGame(_scriptableObject._letters);
+        break;
+      }
+      case "Numbers":
+      {
+        StartGame(_scriptableObject._numbers);
+        break;
+      }
+      default: return;
+    }
+  }
+  private void StartGame(List<Sprite> _sprites)
+  {
+    _setSelection.SetActive(false);
+    _easyLevelState.Array(_sprites);
+    _mediumLevelState.Array(_sprites);
+    _hardLevelState.Array(_sprites);
+    _stateMachine.Enter<Easy>();
+    _PlayMode.Invoke();
+    _isGameActive = true; 
+  }
+
+  [UsedImplicitly]
+  public void ChildrenDelete(GameObject gameObject)
+  {
+    var temp = gameObject.transform;
+
+    foreach (Transform child in temp) 
+    {
+      Destroy(child.gameObject); 
+    }
+  }
+
+  private void AddStartIcons()
+  {
+    for (int i = 0; i < _scriptableObject._allObjects.Count; i++)
+    {
+      _icons.Add(_scriptableObject._allObjects[i].First());
+    }
+    
+  }
+  
+  [UsedImplicitly]
+  public void RestartScene()
+  {
+    SceneManager.LoadSceneAsync(GlobalConstants.SceneGame);
+  }
+  public void BlackOut()
+  {
+    _canvasGroup.DOFade(1, 3f);
+  }
+  
 }
