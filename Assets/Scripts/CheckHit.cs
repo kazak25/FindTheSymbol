@@ -3,7 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 
 
-public class RayCast : MonoBehaviour
+public class CheckHit : MonoBehaviour
 {
     [SerializeField] private GameController _gameController;
     [SerializeField] private TaskSelection _gameMode;
@@ -31,6 +31,7 @@ public class RayCast : MonoBehaviour
         
         if (Physics.Raycast(ray, out hit, 10000))
         {
+            Debug.Log("kek");
             var startPosition = hit.collider.gameObject.transform.position;
             var name = hit.collider.gameObject.name;
             _gameController.ObjectsSelection(name);

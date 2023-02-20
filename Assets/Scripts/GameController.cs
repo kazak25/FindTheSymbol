@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -20,13 +21,13 @@ public class GameController : MonoBehaviour
   [SerializeField] private Medium _mediumLevelState;
   [SerializeField] private Hard _hardLevelState;
   
-  [SerializeField] private GameObject _gameObject;
-  [SerializeField] private GameObject _iconName;
-  [SerializeField] private GameObject _setSelection;
+  [SerializeField] private GameObject _icon;
+  [SerializeField] private Canvas _setSelection;
   [SerializeField] public GameObject _nextLevelbutton;
   [SerializeField] public GameObject _restartButton;
   
   [SerializeField] private CanvasGroup _canvasGroup;
+
   
   public bool _isGameActive = false; 
   public bool isLastLevel = false;
@@ -48,24 +49,12 @@ public class GameController : MonoBehaviour
   {
     for (var i = 0; i < _icons.Count; i++)
     {
-      var gameObject = Instantiate(_gameObject,_setSelection.transform);
-      var iconName = Instantiate(_iconName,_setSelection.transform);
-      var sprite = gameObject.GetComponent<SpriteRenderer>();
+      var icon = Instantiate(_icon,_setSelection.transform);
+      var sprite = icon.GetComponent<SpriteRenderer>();
       sprite.sprite = _icons[i];
-      gameObject.transform.position = new Vector3(_x, 0f, 0f);
-      iconName.transform.position = new Vector3(_x, -2f, 0f);
-      var scale = gameObject.GetComponent<RectTransform>();
-      scale.sizeDelta = new Vector2(5, 5);
-      scale.localScale = new Vector3(3, 3, 0);
-      var textScale = iconName.GetComponent<RectTransform>();
-      textScale.sizeDelta = new Vector2(5, 5);
-      textScale.localScale = new Vector3(2, 2,0);
-      _gameObjects.Add(gameObject);
-      var textUI = iconName.GetComponent<TextMeshProUGUI>();
+      var textUI = icon.GetComponentInChildren<TextMeshProUGUI>();
       textUI.text = _scriptableObject._allObjectsNames[i];
-      textUI.fontSize = 2;
-      gameObject.name = _scriptableObject._allObjectsNames[i];
-      _x += 3;
+      icon.name = _scriptableObject._allObjectsNames[i];
     }
   }
   [UsedImplicitly]
@@ -143,7 +132,7 @@ public class GameController : MonoBehaviour
   }
   private void StartGame(List<Sprite> _sprites)
   {
-    _setSelection.SetActive(false);
+    _setSelection.enabled = false;
     _easyLevelState.Array(_sprites);
     _mediumLevelState.Array(_sprites);
     _hardLevelState.Array(_sprites);

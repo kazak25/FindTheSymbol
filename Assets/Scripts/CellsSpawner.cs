@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CellsSpawner : MonoBehaviour
 {
@@ -41,10 +42,10 @@ public class CellsSpawner : MonoBehaviour
                 var cell = Instantiate(_cell,_currentLevel.transform);
                 cell.transform.position = new Vector3(x, y, 0);
                 var gameObject = Instantiate(_gameObject,cell.transform);
-                var sprite = gameObject.GetComponent<SpriteRenderer>();
-                sprite.sprite = tempSprite[spriteNumber];
+                Sprite sprite = gameObject.GetComponent<Sprite>();
+                sprite = tempSprite[spriteNumber];
                 gameObject.transform.position = new Vector3(x, y, 0);
-                gameObject.name = sprite.sprite.name;
+                gameObject.name = sprite.name;
                 x += distanceBetweenElements;
                 spriteNumber++;
             }
