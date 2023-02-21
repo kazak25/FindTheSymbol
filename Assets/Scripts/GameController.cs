@@ -25,8 +25,11 @@ public class GameController : MonoBehaviour
   [SerializeField] private Canvas _setSelection;
   [SerializeField] public GameObject _nextLevelbutton;
   [SerializeField] public GameObject _restartButton;
+  [SerializeField] private GameObject _setSelectionObject;
   
   [SerializeField] private CanvasGroup _canvasGroup;
+  
+  
 
   
   public bool _isGameActive = false; 
@@ -132,7 +135,7 @@ public class GameController : MonoBehaviour
   }
   private void StartGame(List<Sprite> _sprites)
   {
-    _setSelection.enabled = false;
+    _setSelectionObject.SetActive(false);
     _easyLevelState.Array(_sprites);
     _mediumLevelState.Array(_sprites);
     _hardLevelState.Array(_sprites);
