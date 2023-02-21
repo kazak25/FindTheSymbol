@@ -30,15 +30,12 @@ public class GameController : MonoBehaviour
   [SerializeField] private CanvasGroup _canvasGroup;
   
   
-
-  
   public bool _isGameActive = false; 
   public bool isLastLevel = false;
   public bool _isWinCondition = false;
   private List<Sprite> _icons = new List<Sprite>();
   private List<GameObject> _gameObjects = new List<GameObject>();
   public int _levelNumber;
-  private float _x = -3;
 
   private void Start()
   {
@@ -83,34 +80,26 @@ public class GameController : MonoBehaviour
       default: return;
     }
   }
+
   public List<Sprite> SpritesRandom(List<Sprite> _sprites, int cellCount)
   {
     List<Sprite> _tempSprites = new List<Sprite>();
     for (int i = 0; i < cellCount; i++)
     {
-      var count = 0;
-      var index = Random.Range(0, _sprites.Count);
-      var tempsprite = _sprites[index];
-      if (_tempSprites.Count == 0)
+      while (true)
       {
-        _tempSprites.Add(tempsprite);
-        continue;
-      }
-      for ( int k = 0; k < _tempSprites.Count; k++)
-      {
-        if (tempsprite == _tempSprites[k])
+        var tempIndex = Random.Range(0, _sprites.Count);
+        var randomSprite = _sprites[tempIndex];
+        if (!_tempSprites.Contains(randomSprite))
         {
-          i--;
-          count = 1;
+          _tempSprites.Add(randomSprite);
+          break;
         }
-      }
-      if (count == 0)
-      {
-        _tempSprites.Add(tempsprite); 
       }
     }
     return _tempSprites;
   }
+
   public void ObjectsSelection(string name)
   {
     switch (name)
@@ -141,7 +130,8 @@ public class GameController : MonoBehaviour
     _hardLevelState.Array(_sprites);
     _stateMachine.Enter<Easy>();
     _PlayMode.Invoke();
-    _isGameActive = true; 
+    _isGameActive = true;
+   
   }
 
   [UsedImplicitly]

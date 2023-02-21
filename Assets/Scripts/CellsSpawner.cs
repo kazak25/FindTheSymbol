@@ -9,6 +9,7 @@ public class CellsSpawner : MonoBehaviour
     [SerializeField] private GameController _gameController;
     
     [SerializeField] private TaskSelection _playMode;
+    [SerializeField] private LevelSettings _levelSettings;
     
     [SerializeField] private GameObject _cell;
     [SerializeField] private GameObject _gameObject;
@@ -16,41 +17,44 @@ public class CellsSpawner : MonoBehaviour
     
     public void Easylevel(List<Sprite> _sprites)
     {
-        CreateLevel(_sprites, 1, 3, -5, 0, 5, 0);
+        _levelSettings.EasyLevelSettings();
+        CreateLevel(_sprites);
     }
     public void MediumLevel(List<Sprite> _sprites)
     {
-        CreateLevel(_sprites, 2, 3, -5, 2, 5,3 );
+        _levelSettings.MediumLevelSettings();
+        CreateLevel(_sprites);
     }
     public void HardLevel(List<Sprite> _sprites)
     {
-        CreateLevel(_sprites, 3, 3, -4, 3, 4, 3);
+        _levelSettings.HardLevelSettings();
+        CreateLevel(_sprites);
     }
 
-    private void CreateLevel(List<Sprite> _sprites, int columnsCount, int elementsСountPerLine, int startPositionX, 
-        int startPositionY,int distanceBetweenElements,int lineSpacing)
+    private void CreateLevel(List<Sprite> _sprites)
     {
-        int x = startPositionX;
-        int y = startPositionY;
-        var tempSprite= _gameController.SpritesRandom(_sprites, columnsCount*elementsСountPerLine);
+        int x = _levelSettings.startPositionX;
+        int y = _levelSettings.startPositionY;
+        var cellCount = _levelSettings.columnsCount * _levelSettings.elementsСountPerLine;
+        var tempSprite= _gameController.SpritesRandom(_sprites, cellCount);
         _playMode.Initialize(tempSprite);
         int spriteNumber = 0;
-        for (int k = 0; k < columnsCount; k++)
+        for (int k = 0; k < _levelSettings.columnsCount; k++)
         {
-            for (int i = 0; i < elementsСountPerLine; i++)
+            for (int i = 0; i < _levelSettings.elementsСountPerLine; i++)
             {
                 var cell = Instantiate(_cell,_currentLevel.transform);
                 cell.transform.position = new Vector3(x, y, 0);
-                var gameObject = Instantiate(_gameObject,cell.transform);
-                var sprite = gameObject.GetComponent<SpriteRenderer>();
+                var icon = Instantiate(_gameObject,cell.transform);
+                var sprite = icon.GetComponent<SpriteRenderer>();
                 sprite.sprite = tempSprite[spriteNumber];
-                gameObject.transform.position = new Vector3(x, y, 0);
-                gameObject.name = sprite.sprite.name;
-                x += distanceBetweenElements;
+                icon.transform.position = new Vector3(x, y, 0);
+                icon.name = sprite.sprite.name;
+                x += _levelSettings.distanceBetweenElements;
                 spriteNumber++;
             }
-            x = startPositionX;
-            y -= lineSpacing;
+            x = _levelSettings.startPositionX;
+            y -= _levelSettings.lineSpacing;
         }
     }
 }
