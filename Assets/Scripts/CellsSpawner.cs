@@ -12,7 +12,7 @@ public class CellsSpawner : MonoBehaviour
     
     [SerializeField] private GameObject _cell;
     [SerializeField] private GameObject _gameObject;
-    [SerializeField] private GameObject _currentLevel;
+    [SerializeField] private Canvas _currentLevel;
     
     public void Easylevel(List<Sprite> _sprites)
     {
@@ -42,10 +42,10 @@ public class CellsSpawner : MonoBehaviour
                 var cell = Instantiate(_cell,_currentLevel.transform);
                 cell.transform.position = new Vector3(x, y, 0);
                 var gameObject = Instantiate(_gameObject,cell.transform);
-                Sprite sprite = gameObject.GetComponent<Sprite>();
-                sprite = tempSprite[spriteNumber];
+                var sprite = gameObject.GetComponent<SpriteRenderer>();
+                sprite.sprite = tempSprite[spriteNumber];
                 gameObject.transform.position = new Vector3(x, y, 0);
-                gameObject.name = sprite.name;
+                gameObject.name = sprite.sprite.name;
                 x += distanceBetweenElements;
                 spriteNumber++;
             }
