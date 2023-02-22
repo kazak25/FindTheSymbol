@@ -44,7 +44,7 @@ public class GameController : MonoBehaviour
     AddStartIcons();
     SetSelection();
   }
-
+  [UsedImplicitly]
   private void SetSelection()
   {
     for (var i = 0; i < _icons.Count; i++)
@@ -80,29 +80,9 @@ public class GameController : MonoBehaviour
       default: return;
     }
   }
-
-  public List<Sprite> SpritesRandom(List<Sprite> _sprites, int cellCount)
+  public void ObjectsSelection(string objectName)
   {
-    List<Sprite> _tempSprites = new List<Sprite>();
-    for (int i = 0; i < cellCount; i++)
-    {
-      while (true)
-      {
-        var tempIndex = Random.Range(0, _sprites.Count);
-        var randomSprite = _sprites[tempIndex];
-        if (!_tempSprites.Contains(randomSprite))
-        {
-          _tempSprites.Add(randomSprite);
-          break;
-        }
-      }
-    }
-    return _tempSprites;
-  }
-
-  public void ObjectsSelection(string name)
-  {
-    switch (name)
+    switch (objectName)
     {
       case "Cars": 
       {
@@ -122,12 +102,12 @@ public class GameController : MonoBehaviour
       default: return;
     }
   }
-  private void StartGame(List<Sprite> _sprites)
+  private void StartGame(List<Sprite> sprites)
   {
     _setSelectionObject.SetActive(false);
-    _easyLevelState.Array(_sprites);
-    _mediumLevelState.Array(_sprites);
-    _hardLevelState.Array(_sprites);
+    _easyLevelState.Array(sprites);
+    _mediumLevelState.Array(sprites);
+    _hardLevelState.Array(sprites);
     _stateMachine.Enter<Easy>();
     _PlayMode.Invoke();
     _isGameActive = true;
@@ -135,11 +115,11 @@ public class GameController : MonoBehaviour
   }
 
   [UsedImplicitly]
-  public void ChildrenDelete(GameObject gameObject)
+  public void ChildrenDelete(GameObject parent)
   {
-    var temp = gameObject.transform;
+    var currentParent = parent.transform;
 
-    foreach (Transform child in temp) 
+    foreach (Transform child in currentParent) 
     {
       Destroy(child.gameObject); 
     }
@@ -163,5 +143,23 @@ public class GameController : MonoBehaviour
   {
     _canvasGroup.DOFade(1, 3f);
   }
-  
+
+ public List<T> GetRandomObject<T>(List<T> objects, int count)
+  {
+    List<T> _tempSprites = new List<T>();
+    for (int i = 0; i < count; i++)
+    {
+      while (true)
+      {
+        var tempIndex = Random.Range(0, objects.Count);
+        var randomSprite = objects[tempIndex];
+        if (!_tempSprites.Contains(randomSprite))
+        {
+          _tempSprites.Add(randomSprite);
+          break;
+        }
+      }
+    }
+    return _tempSprites;
+  }
 }

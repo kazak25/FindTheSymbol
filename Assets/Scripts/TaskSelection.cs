@@ -20,12 +20,13 @@ public class TaskSelection : MonoBehaviour
     [UsedImplicitly]
     public void SearchObject()
     {
-        var randomIndex = RandomName();
+        
+        var randomIndex = GetRandomName();
         tempName = _sprites[randomIndex].name;
 
         while (_spritesNames.Contains(tempName))
         {
-            randomIndex = RandomName();
+            randomIndex = GetRandomName();
             tempName = _sprites[randomIndex].name;
         }
         _spritesNames.Add(tempName);
@@ -39,7 +40,7 @@ public class TaskSelection : MonoBehaviour
         _spritesNames.Clear();
     }
 
-    private int RandomName()
+    private int GetRandomName()
     {
       return  Random.Range(0,_sprites.Count);
     }

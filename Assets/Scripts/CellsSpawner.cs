@@ -8,7 +8,7 @@ public class CellsSpawner : MonoBehaviour
 {
     [SerializeField] private GameController _gameController;
     
-    [SerializeField] private TaskSelection _playMode;
+    [SerializeField] private TaskSelection _taskSelection;
     [SerializeField] private LevelSettings _levelSettings;
     
     [SerializeField] private GameObject _cell;
@@ -25,10 +25,10 @@ public class CellsSpawner : MonoBehaviour
         _levelSettings.MediumLevelSettings();
         CreateLevel(_sprites);
     }
-    public void HardLevel(List<Sprite> _sprites)
+    public void HardLevel(List<Sprite> sprites)
     {
         _levelSettings.HardLevelSettings();
-        CreateLevel(_sprites);
+        CreateLevel(sprites);
     }
 
     private void CreateLevel(List<Sprite> _sprites)
@@ -36,8 +36,8 @@ public class CellsSpawner : MonoBehaviour
         int x = _levelSettings.startPositionX;
         int y = _levelSettings.startPositionY;
         var cellCount = _levelSettings.columnsCount * _levelSettings.elementsСountPerLine;
-        var tempSprite= _gameController.SpritesRandom(_sprites, cellCount);
-        _playMode.Initialize(tempSprite);
+        var tempSprite= _gameController.GetRandomObject<Sprite>(_sprites, cellCount);
+        _taskSelection.Initialize(tempSprite);
         int spriteNumber = 0;
         for (int k = 0; k < _levelSettings.columnsCount; k++)
         {
