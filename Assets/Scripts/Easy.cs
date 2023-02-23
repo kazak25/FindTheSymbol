@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Easy : MonoBehaviour,StateMachine.Istate
+public class Easy : MonoBehaviour
 {
     [SerializeField] private CellsSpawner _easyLevel;
     [SerializeField] private GameObject _currentLevel;

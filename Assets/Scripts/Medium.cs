@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Medium : MonoBehaviour,StateMachine.Istate
+public class Medium : MonoBehaviour
 {
     [SerializeField] private CellsSpawner _mediumLevel;
     [SerializeField] private GameObject _currentLevel;

@@ -17,8 +17,8 @@ public class GameController : MonoBehaviour
   
   [SerializeField] private StateMachine _stateMachine;
    
-  [SerializeField] private Easy _easyLevelState;
-  [SerializeField] private Medium _mediumLevelState;
+  [SerializeField] private SetSelctionState _setSelctionState;
+  [SerializeField] private GameState _gameState;
   [SerializeField] private Hard _hardLevelState;
 
   [SerializeField] private SymbolsSetView _symbolsSetView;
@@ -40,13 +40,13 @@ public class GameController : MonoBehaviour
 
   private void Start()
   {
-    _stateMachine = new StateMachine(_easyLevelState, _mediumLevelState, _hardLevelState);
-    BlackOut();
-    AddStartIcons();
-    SetSelection();
-    _symbolsSetView = new SymbolsSetView();
+    _stateMachine = new StateMachine(_setSelctionState, _gameState);
+   // BlackOut(); для теста в машине пока что будем запускать
+   // AddStartIcons()
+   _stateMachine.Enter<SetSelctionState,GameController>(this);
+   SetSelection();
   }
-  [UsedImplicitly]
+
   private void SetSelection()
   {
     for (var i = 0; i < _icons.Count; i++)
@@ -63,7 +63,7 @@ public class GameController : MonoBehaviour
     {
       case 1:
       {
-        _stateMachine.Enter<Medium>();
+       // _stateMachine.Enter<Medium>();
         _nextLevelbutton.SetActive(false);
         _PlayMode.Invoke();
         break;
@@ -71,7 +71,7 @@ public class GameController : MonoBehaviour
       case 2:
       {
         isLastLevel = true;
-        _stateMachine.Enter<Hard>();
+        //_stateMachine.Enter<Hard>();
         _nextLevelbutton.SetActive(false);
         _PlayMode.Invoke();
         break;
@@ -79,9 +79,29 @@ public class GameController : MonoBehaviour
       default: return;
     }
   }
-  public void ObjectsSelection(string objectName)
+
+  public List<Sprite> SpritesRandom(List<Sprite> _sprites, int cellCount)
   {
-    switch (objectName)
+    List<Sprite> _tempSprites = new List<Sprite>();
+    for (int i = 0; i < cellCount; i++)
+    {
+      while (true)
+      {
+        var tempIndex = Random.Range(0, _sprites.Count);
+        var randomSprite = _sprites[tempIndex];
+        if (!_tempSprites.Contains(randomSprite))
+        {
+          _tempSprites.Add(randomSprite);
+          break;
+        }
+      }
+    }
+    return _tempSprites;
+  }
+
+  public void ObjectsSelection(string name)
+  {
+    switch (name)
     {
       case "Cars": 
       {
@@ -101,30 +121,28 @@ public class GameController : MonoBehaviour
       default: return;
     }
   }
-  private void StartGame(List<Sprite> sprites)
+  private void StartGame(List<Sprite> _sprites)
   {
     _setSelectionObject.SetActive(false);
-    _easyLevelState.Array(sprites);
-    _mediumLevelState.Array(sprites);
-    _hardLevelState.Array(sprites);
-    _stateMachine.Enter<Easy>();
+    _gameState.Array(_sprites);
+    _stateMachine.Enter<GameState>();
     _PlayMode.Invoke();
     _isGameActive = true;
    
   }
 
   [UsedImplicitly]
-  public void ChildrenDelete(GameObject parent)
+  public void ChildrenDelete(GameObject gameObject)
   {
-    var currentParent = parent.transform;
+    var temp = gameObject.transform;
 
-    foreach (Transform child in currentParent) 
+    foreach (Transform child in temp) 
     {
       Destroy(child.gameObject); 
     }
   }
 
-  private void AddStartIcons()
+  public void AddStartIcons()
   {
     for (int i = 0; i < _scriptableObject._allObjects.Count; i++)
     {
@@ -142,23 +160,5 @@ public class GameController : MonoBehaviour
   {
     _canvasGroup.DOFade(1, 3f);
   }
-
- public List<T> GetRandomObject<T>(List<T> objects, int count)
-  {
-    List<T> _tempSprites = new List<T>();
-    for (int i = 0; i < count; i++)
-    {
-      while (true)
-      {
-        var tempIndex = Random.Range(0, objects.Count);
-        var randomSprite = objects[tempIndex];
-        if (!_tempSprites.Contains(randomSprite))
-        {
-          _tempSprites.Add(randomSprite);
-          break;
-        }
-      }
-    }
-    return _tempSprites;
-  }
+  
 }
