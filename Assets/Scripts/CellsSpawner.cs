@@ -15,6 +15,7 @@ public class CellsSpawner : MonoBehaviour
     [SerializeField] private GameObject _gameObject;
     [SerializeField] private Canvas _currentLevel;
     
+    
     public void Easylevel(List<Sprite> _sprites)
     {
         _levelSettings.EasyLevelSettings();
@@ -36,8 +37,8 @@ public class CellsSpawner : MonoBehaviour
         int x = _levelSettings.startPositionX;
         int y = _levelSettings.startPositionY;
         var cellCount = _levelSettings.columnsCount * _levelSettings.elementsСountPerLine;
-        var tempSprite= _gameController.GetRandomObject<Sprite>(_sprites, cellCount);
-        _taskSelection.Initialize(tempSprite);
+      //  var tempSprite= _gameController.GetRandomObject<Sprite>(_sprites, cellCount);
+      //  _taskSelection.Initialize(tempSprite);
         int spriteNumber = 0;
         for (int k = 0; k < _levelSettings.columnsCount; k++)
         {
@@ -47,7 +48,7 @@ public class CellsSpawner : MonoBehaviour
                 cell.transform.position = new Vector3(x, y, 0);
                 var icon = Instantiate(_gameObject,cell.transform);
                 var sprite = icon.GetComponent<SpriteRenderer>();
-                sprite.sprite = tempSprite[spriteNumber];
+             //   sprite.sprite = tempSprite[spriteNumber];
                 icon.transform.position = new Vector3(x, y, 0);
                 icon.name = sprite.sprite.name;
                 x += _levelSettings.distanceBetweenElements;

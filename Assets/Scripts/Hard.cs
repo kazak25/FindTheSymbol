@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Hard : MonoBehaviour,StateMachine.Istate
+public class Hard : MonoBehaviour
 {
     [SerializeField] private CellsSpawner _hardLevel;
     [SerializeField] private GameObject _currentLevel;

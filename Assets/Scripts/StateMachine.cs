@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StateMachine : MonoBehaviour
@@ -19,20 +20,26 @@ public class StateMachine : MonoBehaviour
     }
 
     public void Enter<Tstate>()
-        where Tstate : Istate
+        where Tstate : IStateWithoutContext
     {
         _currentState?.Exit();
         var type = typeof(Tstate);
         var state = _states[type];
-        state.Enter();
+      ((IStateWithoutContext)state).Enter();
+        _currentState = state;
+    }
+
+    public void Enter<Tstate, TContext>(TContext context)
+    where Tstate : IStateWithContext<TContext>
+    
+    {
+        _currentState?.Exit();
+        var type = typeof(Tstate);
+        var state = _states[type];
+        ((IStateWithContext<TContext>)state).Enter(context);
         _currentState = state;
     }
     
-    public interface Istate
-    {
-        void Initialize(StateMachine stateMachine);
-        void Enter();
-        void Exit();
-    }
-
 }
+
+// для того , чтобы передавать только наследников класса (избегаем , чтобы не нпередали пустой класс)

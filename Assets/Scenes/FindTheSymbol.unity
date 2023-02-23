@@ -1303,6 +1303,7 @@ GameObject:
   - component: {fileID: 1266187605}
   - component: {fileID: 1266187606}
   - component: {fileID: 1266187608}
+  - component: {fileID: 1266187611}
   - component: {fileID: 1266187610}
   - component: {fileID: 1266187609}
   - component: {fileID: 1266187612}
@@ -1504,6 +1505,18 @@ MonoBehaviour:
   _easyLevel: {fileID: 1266187618}
   _currentLevel: {fileID: 1137344093}
   _gameController: {fileID: 1266187605}
+--- !u!114 &1266187611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266187600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77b2fd9ed4965ef4db68aaa173695459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1266187612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1766,7 +1779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameController: {fileID: 1266187605}
-  _taskSelection: {fileID: 1266187608}
+  _playMode: {fileID: 1266187608}
   _levelSettings: {fileID: 1266187619}
   _cell: {fileID: 7684138060517826032, guid: 3b01d8e37b668de4ba7e6a9c002ee368, type: 3}
   _gameObject: {fileID: 3913363062957192269, guid: 1b740ce079be67a4796c9b9d97f67bd1, type: 3}
