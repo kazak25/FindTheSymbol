@@ -10,21 +10,22 @@ public class CellsSpawner : MonoBehaviour
     
     [SerializeField] private TaskSelection _taskSelection;
     [SerializeField] private LevelSettings _levelSettings;
-    
+
+    [SerializeField] private SymbolsSetView _symbolsSetView;
     [SerializeField] private GameObject _cell;
-    [SerializeField] private GameObject _gameObject;
     [SerializeField] private Canvas _currentLevel;
     
-    
-    public void Easylevel(List<Sprite> _sprites)
+
+    public void Easylevel(List<Sprite> sprites)
+
     {
         _levelSettings.EasyLevelSettings();
-        CreateLevel(_sprites);
+        CreateLevel(sprites);
     }
-    public void MediumLevel(List<Sprite> _sprites)
+    public void MediumLevel(List<Sprite> sprites)
     {
         _levelSettings.MediumLevelSettings();
-        CreateLevel(_sprites);
+        CreateLevel(sprites);
     }
     public void HardLevel(List<Sprite> sprites)
     {
@@ -32,13 +33,15 @@ public class CellsSpawner : MonoBehaviour
         CreateLevel(sprites);
     }
 
-    private void CreateLevel(List<Sprite> _sprites)
+    private void CreateLevel(List<Sprite> sprites)
     {
         int x = _levelSettings.startPositionX;
         int y = _levelSettings.startPositionY;
         var cellCount = _levelSettings.columnsCount * _levelSettings.elementsСountPerLine;
-      //  var tempSprite= _gameController.GetRandomObject<Sprite>(_sprites, cellCount);
-      //  _taskSelection.Initialize(tempSprite);
+
+        var tempSprite= _gameController.GetRandomObject(sprites, cellCount);
+        _taskSelection.Initialize(tempSprite);
+        
         int spriteNumber = 0;
         for (int k = 0; k < _levelSettings.columnsCount; k++)
         {
@@ -46,11 +49,12 @@ public class CellsSpawner : MonoBehaviour
             {
                 var cell = Instantiate(_cell,_currentLevel.transform);
                 cell.transform.position = new Vector3(x, y, 0);
-                var icon = Instantiate(_gameObject,cell.transform);
-                var sprite = icon.GetComponent<SpriteRenderer>();
-             //   sprite.sprite = tempSprite[spriteNumber];
+
+                var icon = Instantiate(_symbolsSetView,cell.transform);
+                icon.Initialize(tempSprite[spriteNumber]);
+                
                 icon.transform.position = new Vector3(x, y, 0);
-                icon.name = sprite.sprite.name;
+                icon.name = tempSprite[spriteNumber].name;
                 x += _levelSettings.distanceBetweenElements;
                 spriteNumber++;
             }
