@@ -20,7 +20,6 @@ public class StateMachine : MonoBehaviour
     }
 
     public void Enter<Tstate>()
-        where Tstate : IStateWithoutContext
     {
         _currentState?.Exit();
         var type = typeof(Tstate);

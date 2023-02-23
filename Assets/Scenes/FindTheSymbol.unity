@@ -869,7 +869,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 21c03f70364e18c4580d63e1dd4eda46, type: 3}
   - {fileID: 21300000, guid: eb0ad4c675a49f24ea7092a8822bbc3f, type: 3}
   - {fileID: 21300000, guid: ae33ec58fb8e7cf43a5b12137e0216db, type: 3}
-  _allObjectsNames: []
 --- !u!1 &1137344093
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,11 +1435,10 @@ MonoBehaviour:
         m_CallState: 2
   _scriptableObject: {fileID: 927349256}
   _stateMachine: {fileID: 1266187609}
-  _easyLevelState: {fileID: 1266187610}
-  _mediumLevelState: {fileID: 1266187612}
+  _setSelctionState: {fileID: 0}
+  _gameState: {fileID: 0}
   _hardLevelState: {fileID: 1266187613}
   _symbolsSetView: {fileID: 3838780372143851785, guid: 1b740ce079be67a4796c9b9d97f67bd1, type: 3}
-  _icon: {fileID: 3913363062957192269, guid: 1b740ce079be67a4796c9b9d97f67bd1, type: 3}
   _setSelection: {fileID: 2068263211}
   _nextLevelbutton: {fileID: 662529850}
   _restartButton: {fileID: 1495831703}
@@ -1780,7 +1778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameController: {fileID: 1266187605}
-  _playMode: {fileID: 1266187608}
+  _taskSelection: {fileID: 1266187608}
   _levelSettings: {fileID: 1266187619}
   _symbolsSetView: {fileID: 3838780372143851785, guid: 1b740ce079be67a4796c9b9d97f67bd1, type: 3}
   _cell: {fileID: 7684138060517826032, guid: 3b01d8e37b668de4ba7e6a9c002ee368, type: 3}

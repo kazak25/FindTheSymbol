@@ -6,15 +6,20 @@ using UnityEngine.UI;
 
 public class ScriptableObject : MonoBehaviour
 {
-    [SerializeField] public List<Sprite> _cars;
-    [SerializeField] public List<Sprite> _letters;
-    [SerializeField] public List<Sprite> _numbers;
+    public IReadOnlyList<Sprite> Cars => _cars;
+    public IReadOnlyList<Sprite> Letters => _letters;
+    public IReadOnlyList<Sprite> Numbers => _numbers;
+    public IReadOnlyList<List<Sprite>> AllObjects => _allObjects;
+    public IReadOnlyList<string> AllObjectsNames => _allObjectsNames;
+    
+    [SerializeField] private List<Sprite> _cars;
+    [SerializeField] private List<Sprite> _letters;
+    [SerializeField] private List<Sprite> _numbers;
    
-    public List<List<Sprite>>_allObjects = new List<List<Sprite>>();
-    public List<string> _allObjectsNames = new List<string>();
+    private readonly List<List<Sprite>>_allObjects = new List<List<Sprite>>();
+    private readonly List<string> _allObjectsNames = new List<string>();
     private void Awake()
     {
-
         _allObjects.Add(_cars);
         _allObjects.Add(_letters);
         _allObjects.Add(_numbers);
