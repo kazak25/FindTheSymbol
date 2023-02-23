@@ -1438,6 +1438,7 @@ MonoBehaviour:
   _easyLevelState: {fileID: 1266187610}
   _mediumLevelState: {fileID: 1266187612}
   _hardLevelState: {fileID: 1266187613}
+  _symbolsSetView: {fileID: 3838780372143851785, guid: 1b740ce079be67a4796c9b9d97f67bd1, type: 3}
   _icon: {fileID: 3913363062957192269, guid: 1b740ce079be67a4796c9b9d97f67bd1, type: 3}
   _setSelection: {fileID: 2068263211}
   _nextLevelbutton: {fileID: 662529850}
@@ -1768,8 +1769,8 @@ MonoBehaviour:
   _gameController: {fileID: 1266187605}
   _taskSelection: {fileID: 1266187608}
   _levelSettings: {fileID: 1266187619}
+  _symbolsSetView: {fileID: 3838780372143851785, guid: 1b740ce079be67a4796c9b9d97f67bd1, type: 3}
   _cell: {fileID: 7684138060517826032, guid: 3b01d8e37b668de4ba7e6a9c002ee368, type: 3}
-  _gameObject: {fileID: 3913363062957192269, guid: 1b740ce079be67a4796c9b9d97f67bd1, type: 3}
   _currentLevel: {fileID: 1137344094}
 --- !u!114 &1266187619
 MonoBehaviour:

@@ -20,7 +20,8 @@ public class GameController : MonoBehaviour
   [SerializeField] private Easy _easyLevelState;
   [SerializeField] private Medium _mediumLevelState;
   [SerializeField] private Hard _hardLevelState;
-  
+
+  [SerializeField] private SymbolsSetView _symbolsSetView;
   [SerializeField] private GameObject _icon;
   [SerializeField] private Canvas _setSelection;
   [SerializeField] public GameObject _nextLevelbutton;
@@ -43,18 +44,16 @@ public class GameController : MonoBehaviour
     BlackOut();
     AddStartIcons();
     SetSelection();
+    _symbolsSetView = new SymbolsSetView();
   }
   [UsedImplicitly]
   private void SetSelection()
   {
     for (var i = 0; i < _icons.Count; i++)
     {
-      var icon = Instantiate(_icon,_setSelection.transform);
-      var sprite = icon.GetComponent<SpriteRenderer>();
-      sprite.sprite = _icons[i];
-      var textUI = icon.GetComponentInChildren<TextMeshProUGUI>();
-      textUI.text = _scriptableObject._allObjectsNames[i];
-      icon.name = _scriptableObject._allObjectsNames[i];
+      var setView = Instantiate(_symbolsSetView, _setSelection.transform);
+      setView.Initialize(_scriptableObject._allObjects[i].First(),_scriptableObject._allObjectsNames[i]);
+      setView.name = _scriptableObject._allObjectsNames[i];
     }
   }
   [UsedImplicitly]
