@@ -6,6 +6,7 @@ using UnityEngine;
 public class CheckHit : MonoBehaviour
 {
     [SerializeField] private GameController _gameController;
+    [SerializeField] private GameState _gameState;
     [SerializeField] private TaskSelection _gameMode;
     [SerializeField] private AudioSource _win;
     [SerializeField] private AudioSource _fail;
@@ -21,7 +22,7 @@ public class CheckHit : MonoBehaviour
     
     private void Raycast()
     {
-        if (_gameController._isWinCondition)
+        if (_gameState.isWinCondition)
         {
             return;
         }
@@ -39,13 +40,13 @@ public class CheckHit : MonoBehaviour
             if (_gameController._isGameActive && hit.collider.gameObject.name == _gameMode.tempName)
             {
                 _win.Play();
-                _gameController._isWinCondition = true;
+                _gameState.isWinCondition = true;
                 var scale = hit.collider.gameObject.transform.localScale;
                 hit.collider.gameObject.transform.DOScale(new Vector3(1.5f, 1.5f, 0), 1f).OnComplete(() =>
                     hit.collider.gameObject.transform.DOScale(scale, 1f));
-                _gameController._levelNumber++;
+                _gameState._levelNumber++;
                 
-                if (_gameController.isLastLevel)
+                if (_gameState.isLastLevel)
                 {
                     StartCoroutine(ShowButtonRestart());
                     return;
@@ -65,7 +66,7 @@ public class CheckHit : MonoBehaviour
     
     public void WinCondition()
     {
-        _gameController._isWinCondition = false;
+        _gameState.isWinCondition = false;
     }
 
     IEnumerator ShowButtonNextLevel()

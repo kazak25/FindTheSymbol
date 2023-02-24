@@ -7,6 +7,14 @@ public class GameState : MonoBehaviour, IStateWithoutContext
     // Start is called before the first frame update
     [SerializeField] private CellsSpawner _levelDifficult;
     [SerializeField] private GameObject _currentLevel;
+    [SerializeField] private GameController _gameController;
+    [SerializeField] private LevelSettings _levelSettings;
+    
+    public int _levelNumber;
+    public bool isWinCondition = false;
+    public bool isLastLevel = false;
+   
+   
     
    // private GameController _gameController;
     private List<Sprite> _sprites = new List<Sprite>();
@@ -25,11 +33,37 @@ public class GameState : MonoBehaviour, IStateWithoutContext
 
     public void Enter()
     {
-       
+       _levelDifficult.Easylevel(_sprites);
     }
 
+    
     public void Exit()
     {
-        throw new System.NotImplementedException();
+        _gameController.ChildrenDelete(_currentLevel);
     }
+
+    public void ChangeLevel()
+    {
+        switch (_levelNumber)
+        {
+            case 1:
+            {
+                _gameController.ChildrenDelete(_currentLevel);
+                _levelDifficult.MediumLevel(_sprites);
+                _levelSettings.NextLevelSetting();
+                break;
+            }
+            case 2:
+            {
+                _gameController.ChildrenDelete(_currentLevel);
+                isLastLevel = true;
+                _levelDifficult.HardLevel(_sprites);
+               _levelSettings.NextLevelSetting();
+                break;
+            }
+            default: return;
+        }
+    }
+    
+    
 }

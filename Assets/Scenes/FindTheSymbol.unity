@@ -207,9 +207,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1266187605}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
-        m_MethodName: ChangeLevel
+      - m_Target: {fileID: 1266187606}
+        m_TargetAssemblyTypeName: RayCast, Assembly-CSharp
+        m_MethodName: WinCondition
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -219,9 +219,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1266187606}
-        m_TargetAssemblyTypeName: RayCast, Assembly-CSharp
-        m_MethodName: WinCondition
+      - m_Target: {fileID: 1266187621}
+        m_TargetAssemblyTypeName: GameState, Assembly-CSharp
+        m_MethodName: ChangeLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -569,7 +569,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -908,6 +907,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -1314,6 +1314,8 @@ GameObject:
   - component: {fileID: 1266187616}
   - component: {fileID: 1266187617}
   - component: {fileID: 1266187619}
+  - component: {fileID: 1266187621}
+  - component: {fileID: 1266187620}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1379,6 +1381,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
@@ -1436,9 +1439,8 @@ MonoBehaviour:
         m_CallState: 2
   _scriptableObject: {fileID: 927349256}
   _stateMachine: {fileID: 1266187609}
-  _easyLevelState: {fileID: 1266187610}
-  _mediumLevelState: {fileID: 1266187612}
-  _hardLevelState: {fileID: 1266187613}
+  _setSelctionState: {fileID: 1266187620}
+  _gameState: {fileID: 1266187621}
   _symbolsSetView: {fileID: 3838780372143851785, guid: 1b740ce079be67a4796c9b9d97f67bd1, type: 3}
   _icon: {fileID: 3913363062957192269, guid: 1b740ce079be67a4796c9b9d97f67bd1, type: 3}
   _setSelection: {fileID: 2068263211}
@@ -1449,6 +1451,7 @@ MonoBehaviour:
   _isGameActive: 0
   isLastLevel: 0
   _isWinCondition: 0
+  _icons: []
   _levelNumber: 0
 --- !u!114 &1266187606
 MonoBehaviour:
@@ -1463,6 +1466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameController: {fileID: 1266187605}
+  _gameState: {fileID: 1266187621}
   _gameMode: {fileID: 1266187608}
   _win: {fileID: 1266187616}
   _fail: {fileID: 1266187615}
@@ -1780,7 +1784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameController: {fileID: 1266187605}
-  _playMode: {fileID: 1266187608}
+  _taskSelection: {fileID: 1266187608}
   _levelSettings: {fileID: 1266187619}
   _symbolsSetView: {fileID: 3838780372143851785, guid: 1b740ce079be67a4796c9b9d97f67bd1, type: 3}
   _cell: {fileID: 7684138060517826032, guid: 3b01d8e37b668de4ba7e6a9c002ee368, type: 3}
@@ -1797,12 +1801,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b668ab56b0a105442b25bf02281f9e55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nextLevelbutton: {fileID: 662529850}
+  _gameController: {fileID: 1266187605}
   columnsCount: 0
   "elements\u0421ountPerLine": 0
   startPositionX: 0
   startPositionY: 0
   distanceBetweenElements: 0
   lineSpacing: 0
+--- !u!114 &1266187620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266187600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb92bf4c69ac796449f3e207a80ae9cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _setSelectionObject: {fileID: 1685139064}
+  _canvasGroup: {fileID: 1266187614}
+--- !u!114 &1266187621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266187600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b181f5090ef7e5945867d58727280083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelDifficult: {fileID: 1266187618}
+  _currentLevel: {fileID: 1137344093}
+  _gameController: {fileID: 1266187605}
+  _levelSettings: {fileID: 1266187619}
+  _levelNumber: 0
+  isWinCondition: 0
+  isLastLevel: 0
 --- !u!1 &1495831703
 GameObject:
   m_ObjectHideFlags: 0
@@ -1999,6 +2038,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0

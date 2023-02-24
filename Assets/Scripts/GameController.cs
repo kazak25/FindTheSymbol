@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
    
   [SerializeField] private SetSelctionState _setSelctionState;
   [SerializeField] private GameState _gameState;
-  [SerializeField] private Hard _hardLevelState;
+ // [SerializeField] private Hard _hardLevelState;
 
   [SerializeField] private SymbolsSetView _symbolsSetView;
   [SerializeField] private GameObject _icon;
@@ -29,12 +29,13 @@ public class GameController : MonoBehaviour
   [SerializeField] private GameObject _setSelectionObject;
   
   [SerializeField] private CanvasGroup _canvasGroup;
-  
-  
+  public IReadOnlyList<Sprite> Icons => _icons;
+
   public bool _isGameActive = false; 
   public bool isLastLevel = false;
   public bool _isWinCondition = false;
-  private List<Sprite> _icons = new List<Sprite>();
+  public List<Sprite> _icons = new List<Sprite>();
+  
   private List<GameObject> _gameObjects = new List<GameObject>();
   public int _levelNumber;
 
@@ -43,11 +44,13 @@ public class GameController : MonoBehaviour
     _stateMachine = new StateMachine(_setSelctionState, _gameState);
    // BlackOut(); для теста в машине пока что будем запускать
    // AddStartIcons()
+   //SetSelection();
    _stateMachine.Enter<SetSelctionState,GameController>(this);
-   SetSelection();
+   
   }
 
-  private void SetSelection()
+  
+  public void SetSelection()
   {
     for (var i = 0; i < _icons.Count; i++)
     {
@@ -57,30 +60,30 @@ public class GameController : MonoBehaviour
     }
   }
   [UsedImplicitly]
-  public void ChangeLevel()
-  {
-    switch (_levelNumber)
-    {
-      case 1:
-      {
-       // _stateMachine.Enter<Medium>();
-        _nextLevelbutton.SetActive(false);
-        _PlayMode.Invoke();
-        break;
-      }
-      case 2:
-      {
-        isLastLevel = true;
-        //_stateMachine.Enter<Hard>();
-        _nextLevelbutton.SetActive(false);
-        _PlayMode.Invoke();
-        break;
-      }
-      default: return;
-    }
-  }
+  // public void ChangeLevel()
+  // {
+  //   switch (_levelNumber)
+  //   {
+  //     case 1:
+  //     {
+  //      // _stateMachine.Enter<Medium>();
+  //       _nextLevelbutton.SetActive(false);
+  //       _PlayMode.Invoke();
+  //       break;
+  //     }
+  //     case 2:
+  //     {
+  //       isLastLevel = true;
+  //       //_stateMachine.Enter<Hard>();
+  //       _nextLevelbutton.SetActive(false);
+  //       _PlayMode.Invoke();
+  //       break;
+  //     }
+  //     default: return;
+  //   }
+  // }
 
-  public List<Sprite> SpritesRandom(List<Sprite> _sprites, int cellCount)
+  public List<Sprite> GetRandomObject(List<Sprite> _sprites, int cellCount)
   {
     List<Sprite> _tempSprites = new List<Sprite>();
     for (int i = 0; i < cellCount; i++)
@@ -156,9 +159,9 @@ public class GameController : MonoBehaviour
   {
     SceneManager.LoadSceneAsync(GlobalConstants.SceneGame);
   }
-  public void BlackOut()
-  {
-    _canvasGroup.DOFade(1, 3f);
-  }
-  
+  // public void BlackOut()
+  // {
+  //   _canvasGroup.DOFade(1, 3f);
+  // }
+  //
 }

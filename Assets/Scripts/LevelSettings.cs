@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class LevelSettings : MonoBehaviour
 {
+   [SerializeField] public GameObject _nextLevelbutton;
+   [SerializeField] private GameController _gameController;
+   
    public  int columnsCount;
    public  int elementsСountPerLine;
    public  int startPositionX;
    public  int startPositionY;
    public  int distanceBetweenElements;
    public  int lineSpacing;
+   
 
+   public void NextLevelSetting()
+   {
+      _nextLevelbutton.SetActive(false);
+      _gameController._PlayMode.Invoke();
+   }
    public  void EasyLevelSettings()
    {
       columnsCount = 1;

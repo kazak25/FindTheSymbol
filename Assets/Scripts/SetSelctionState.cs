@@ -22,8 +22,7 @@ public class SetSelctionState : MonoBehaviour, IStateWithContext<GameController>
         _setSelectionObject.SetActive(true);
         _canvasGroup.DOFade(1, 3f);
         _gameController.AddStartIcons();
-       // _gameController.SetSe
-        
+       _gameController.SetSelection();
     }
    
 
