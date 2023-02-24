@@ -22,13 +22,13 @@ public class GameController : MonoBehaviour
  // [SerializeField] private Hard _hardLevelState;
 
   [SerializeField] private SymbolsSetView _symbolsSetView;
-  [SerializeField] private GameObject _icon;
   [SerializeField] private Canvas _setSelection;
   [SerializeField] public GameObject _nextLevelbutton;
   [SerializeField] public GameObject _restartButton;
   [SerializeField] private GameObject _setSelectionObject;
   
   [SerializeField] private CanvasGroup _canvasGroup;
+
   public IReadOnlyList<Sprite> Icons => _icons;
 
   public bool _isGameActive = false; 
@@ -55,10 +55,11 @@ public class GameController : MonoBehaviour
     for (var i = 0; i < _icons.Count; i++)
     {
       var setView = Instantiate(_symbolsSetView, _setSelection.transform);
-      setView.Initialize(_scriptableObject._allObjects[i].First(),_scriptableObject._allObjectsNames[i]);
-      setView.name = _scriptableObject._allObjectsNames[i];
+      setView.Initialize(_scriptableObject.AllObjects[i].First(),_scriptableObject.AllObjectsNames[i]);
+      setView.name = _scriptableObject.AllObjectsNames[i];
     }
   }
+  
   [UsedImplicitly]
   // public void ChangeLevel()
   // {
@@ -82,10 +83,16 @@ public class GameController : MonoBehaviour
   //     default: return;
   //   }
   // }
-
-  public List<Sprite> GetRandomObject(List<Sprite> _sprites, int cellCount)
+ 
+  private void StartCreateLevel<T>(StateMachine _stateMachine)
   {
-    List<Sprite> _tempSprites = new List<Sprite>();
+    _stateMachine.Enter<T>();
+    _nextLevelbutton.SetActive(false);
+    _PlayMode.Invoke();
+  }
+ public List<T> GetRandomObjects<T>(List<T> _sprites, int cellCount)
+  {
+    List<T> _tempSprites = new List<T>();
     for (int i = 0; i < cellCount; i++)
     {
       while (true)
@@ -108,26 +115,26 @@ public class GameController : MonoBehaviour
     {
       case "Cars": 
       {
-        StartGame(_scriptableObject._cars);
+        StartGame(_scriptableObject.Cars);
         break;
       }
       case "Letters": 
       {
-        StartGame(_scriptableObject._letters);
+        StartGame(_scriptableObject.Letters);
         break;
       }
       case "Numbers":
       {
-        StartGame(_scriptableObject._numbers);
+        StartGame(_scriptableObject.Numbers);
         break;
       }
       default: return;
     }
   }
-  private void StartGame(List<Sprite> _sprites)
+  private void StartGame(IReadOnlyList<Sprite> sprites)
   {
     _setSelectionObject.SetActive(false);
-    _gameState.Array(_sprites);
+    _gameState.Array(sprites);
     _stateMachine.Enter<GameState>();
     _PlayMode.Invoke();
     _isGameActive = true;
@@ -147,9 +154,9 @@ public class GameController : MonoBehaviour
 
   public void AddStartIcons()
   {
-    for (int i = 0; i < _scriptableObject._allObjects.Count; i++)
+    for (int i = 0; i < _scriptableObject.AllObjects.Count; i++)
     {
-      _icons.Add(_scriptableObject._allObjects[i].First());
+      _icons.Add(_scriptableObject.AllObjects[i].First());
     }
     
   }

@@ -868,7 +868,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 21c03f70364e18c4580d63e1dd4eda46, type: 3}
   - {fileID: 21300000, guid: eb0ad4c675a49f24ea7092a8822bbc3f, type: 3}
   - {fileID: 21300000, guid: ae33ec58fb8e7cf43a5b12137e0216db, type: 3}
-  _allObjectsNames: []
 --- !u!1 &1137344093
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,10 +1438,11 @@ MonoBehaviour:
         m_CallState: 2
   _scriptableObject: {fileID: 927349256}
   _stateMachine: {fileID: 1266187609}
+
   _setSelctionState: {fileID: 1266187620}
   _gameState: {fileID: 1266187621}
+
   _symbolsSetView: {fileID: 3838780372143851785, guid: 1b740ce079be67a4796c9b9d97f67bd1, type: 3}
-  _icon: {fileID: 3913363062957192269, guid: 1b740ce079be67a4796c9b9d97f67bd1, type: 3}
   _setSelection: {fileID: 2068263211}
   _nextLevelbutton: {fileID: 662529850}
   _restartButton: {fileID: 1495831703}

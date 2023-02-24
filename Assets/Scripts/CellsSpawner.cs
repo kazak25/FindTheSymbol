@@ -39,7 +39,7 @@ public class CellsSpawner : MonoBehaviour
         int y = _levelSettings.startPositionY;
         var cellCount = _levelSettings.columnsCount * _levelSettings.elementsСountPerLine;
 
-        var tempSprite= _gameController.GetRandomObject(sprites, cellCount);
+        var tempSprite= _gameController.GetRandomObjects(sprites, cellCount);
         _taskSelection.Initialize(tempSprite);
         
         int spriteNumber = 0;
@@ -55,6 +55,7 @@ public class CellsSpawner : MonoBehaviour
                 
                 icon.transform.position = new Vector3(x, y, 0);
                 icon.name = tempSprite[spriteNumber].name;
+                
                 x += _levelSettings.distanceBetweenElements;
                 spriteNumber++;
             }
