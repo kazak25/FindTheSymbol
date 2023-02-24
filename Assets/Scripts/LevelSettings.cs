@@ -1,11 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 public class LevelSettings : MonoBehaviour
 {
    [SerializeField] public GameObject _nextLevelbutton;
    [SerializeField] private GameController _gameController;
+   [SerializeField] private GameObject _currentLevel;
+   [SerializeField] private CellsSpawner _levelDifficult;
+  
    
    public  int columnsCount;
    public  int elementsСountPerLine;
@@ -17,6 +22,7 @@ public class LevelSettings : MonoBehaviour
 
    public void NextLevelSetting()
    {
+      //_gameController.ChildrenDelete(_currentLevel);
       _nextLevelbutton.SetActive(false);
       _gameController._PlayMode.Invoke();
    }

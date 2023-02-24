@@ -11,7 +11,7 @@ public class TaskSelection : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
 
-    private List<Sprite> _sprites = new List<Sprite>();
+    private IReadOnlyList<Sprite> _sprites = new List<Sprite>();
     private readonly List<String> _spritesNames = new List<string>();
     
     private TextMeshPro _textName;
@@ -44,7 +44,7 @@ public class TaskSelection : MonoBehaviour
     {
       return  Random.Range(0,_sprites.Count);
     }
-    public void Initialize(List<Sprite> sprites)
+    public void Initialize(IReadOnlyList<Sprite> sprites)
     {
         _sprites = sprites;
     }

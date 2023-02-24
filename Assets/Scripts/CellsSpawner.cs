@@ -10,36 +10,36 @@ public class CellsSpawner : MonoBehaviour
     
     [SerializeField] private TaskSelection _taskSelection;
     [SerializeField] private LevelSettings _levelSettings;
-
+    [SerializeField] private GetRandom _getRandom;
     [SerializeField] private SymbolsSetView _symbolsSetView;
     [SerializeField] private GameObject _cell;
     [SerializeField] private Canvas _currentLevel;
     
 
-    public void Easylevel(List<Sprite> sprites)
+    public void Easylevel(IReadOnlyList<Sprite> sprites)
 
     {
         _levelSettings.EasyLevelSettings();
         CreateLevel(sprites);
     }
-    public void MediumLevel(List<Sprite> sprites)
+    public void MediumLevel(IReadOnlyList<Sprite> sprites)
     {
         _levelSettings.MediumLevelSettings();
         CreateLevel(sprites);
     }
-    public void HardLevel(List<Sprite> sprites)
+    public void HardLevel(IReadOnlyList<Sprite> sprites)
     {
         _levelSettings.HardLevelSettings();
         CreateLevel(sprites);
     }
 
-    private void CreateLevel(List<Sprite> sprites)
+    private void CreateLevel(IReadOnlyList<Sprite> sprites)
     {
         int x = _levelSettings.startPositionX;
         int y = _levelSettings.startPositionY;
         var cellCount = _levelSettings.columnsCount * _levelSettings.elementsСountPerLine;
 
-        var tempSprite= _gameController.GetRandomObject(sprites, cellCount);
+        var tempSprite= _getRandom.GetRandomObject(sprites, cellCount);
         _taskSelection.Initialize(tempSprite);
         
         int spriteNumber = 0;
