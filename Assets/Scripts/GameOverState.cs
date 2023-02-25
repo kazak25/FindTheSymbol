@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameOverState : MonoBehaviour,IStateWithoutContext
 {
-  
-
     public void Initialize(StateMachine stateMachine)
     {
         throw new System.NotImplementedException();
