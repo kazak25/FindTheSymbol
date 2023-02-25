@@ -38,7 +38,7 @@ public class CellsSpawner : MonoBehaviour
         int x = _levelSettings.startPositionX;
         int y = _levelSettings.startPositionY;
         var cellCount = _levelSettings.columnsCount * _levelSettings.elementsСountPerLine;
-
+    
         var tempSprite= _getRandom.GetRandomObject(sprites, cellCount);
         _taskSelection.Initialize(tempSprite);
         
@@ -49,7 +49,7 @@ public class CellsSpawner : MonoBehaviour
             {
                 var cell = Instantiate(_cell,_currentLevel.transform);
                 cell.transform.position = new Vector3(x, y, 0);
-
+    
                 var icon = Instantiate(_symbolsSetView,cell.transform);
                 icon.Initialize(tempSprite[spriteNumber]);
                 
@@ -62,4 +62,5 @@ public class CellsSpawner : MonoBehaviour
             y -= _levelSettings.lineSpacing;
         }
     }
+    
 }

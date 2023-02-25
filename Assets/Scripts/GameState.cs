@@ -17,22 +17,20 @@ public class GameState : MonoBehaviour, IStateWithoutContext
    
     
    // private GameController _gameController;
-   
-   
-   private IReadOnlyList<Sprite>  _sprites = new List<Sprite>();
-   private StateMachine _stateMachine;
 
-   private IReadOnlyList<GameObject> _testGameObjects = new List<GameObject>();
+  
+    private IReadOnlyList<Sprite>  _sprites = new List<Sprite>();
+    private StateMachine _stateMachine;
+   
 
-    //
-    // public void Array(IReadOnlyList<Sprite> sprites)
-    // {
-    //     _sprites = sprites;
-    // }
-    public void Array(IReadOnlyList<GameObject> test)
+    
+    public void Array(IReadOnlyList<Sprite> sprites)
     {
-        _testGameObjects = test;
+        _sprites = sprites;
     }
+    
+   
+    
 
     public void Initialize(StateMachine stateMachine)
     {

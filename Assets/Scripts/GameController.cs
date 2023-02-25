@@ -23,12 +23,13 @@ public class GameController : MonoBehaviour
   [SerializeField] private SymbolsSetView _symbolsSetView;
   [SerializeField] private Canvas _setSelection;
   [SerializeField] private GameObject _setSelectionObject;
-  public IReadOnlyList<GameObject> Icons => _icons;
+  [SerializeField] private GameObject _cell;
+  public IReadOnlyList<Sprite> Icons => _icons;
   public bool _isGameActive = false;
  
   
-  private List<GameObject> _icons = new List<GameObject>();
-  private List<GameObject> _gameObjects = new List<GameObject>();
+  private List<Sprite> _icons = new List<Sprite>();
+  private List<Sprite> _gameObjects = new List<Sprite>();
 
   private void Start()
   {
@@ -40,36 +41,40 @@ public class GameController : MonoBehaviour
   {
     for (var i = 0; i < _icons.Count; i++)
     {
-      var setView = Instantiate(_symbolsSetView, _setSelection.transform);
+      var cell = Instantiate(_cell, _setSelection.transform);
+      var setView = Instantiate(_symbolsSetView, cell.transform);
       setView.Initialize(_scriptableObject.AllObjects[i].First(), _scriptableObject.AllObjectsNames[i]);
       setView.name = _scriptableObject.AllObjectsNames[i];
     }
   }
+  
+ 
+  
 
   public void ObjectsSelection(string name)
   {
     switch (name)
     {
-      case "Cars":
+      case "Mystery":
       {
-        StartGame(_scriptableObject.Test);
+        StartGame(_scriptableObject.Cars);
         break;
       }
-      case "Letters":
+      case "Animals":
       {
-       // StartGame(_scriptableObject.Letters);
+        StartGame(_scriptableObject.Letters);
         break;
       }
-      case "Numbers":
+      case "Food":
       {
-        //StartGame(_scriptableObject.Numbers);
+        StartGame(_scriptableObject.Numbers);
         break;
       }
       default: return;
     }
   }
 
-  private void StartGame(IReadOnlyList<GameObject> sprites)
+  private void StartGame(IReadOnlyList<Sprite> sprites)
   {
     _setSelectionObject.SetActive(false);
     _gameState.Array(sprites);
@@ -92,9 +97,9 @@ public class GameController : MonoBehaviour
 
   public void AddStartIcons()
   {
-    for (int i = 0; i < _scriptableObject.allGameofects.Count; i++)
+    for (int i = 0; i < _scriptableObject.AllObjects.Count; i++)
     {
-      _icons.Add(_scriptableObject.allGameofects[i].First()); //поменял на тест allObj
+      _icons.Add(_scriptableObject.AllObjects[i].First()); 
     }
 
   }

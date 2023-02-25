@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: -4974506490546197702}
   - component: {fileID: 3838780372143851785}
   m_Layer: 0
-  m_Name: Icon
+  m_Name: SetSelectIcon
   m_TagString: Icon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,7 +163,7 @@ RectTransform:
   m_GameObject: {fileID: 3913363062957192269}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.45, y: 0.45, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6982205881134109977}

@@ -42,7 +42,7 @@ public class LevelSettings : MonoBehaviour
       startPositionX = -5;
       startPositionY = 2;
       distanceBetweenElements = 5;
-      lineSpacing =3;
+      lineSpacing =1;
    }
    public  void HardLevelSettings()
    {
@@ -51,6 +51,6 @@ public class LevelSettings : MonoBehaviour
       startPositionX = -4;
       startPositionY = 3;
       distanceBetweenElements = 4;
-      lineSpacing = 3;
+      lineSpacing = 1;
    }
 }

@@ -10,9 +10,9 @@ using Random = UnityEngine.Random;
 public class TaskSelection : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
-
-    private IReadOnlyList<Sprite> _sprites = new List<Sprite>();
-    private readonly List<String> _spritesNames = new List<string>();
+    
+     private IReadOnlyList<Sprite> _sprites = new List<Sprite>();
+     private readonly List<String> _spritesNames = new List<string>();
     
     private TextMeshPro _textName;
     public string tempName { get ; private set; }
@@ -42,7 +42,7 @@ public class TaskSelection : MonoBehaviour
 
     private int GetRandomName()
     {
-      return  Random.Range(0,_sprites.Count);
+      return  Random.Range(0,_spritesNames.Count);
     }
     public void Initialize(IReadOnlyList<Sprite> sprites)
     {
