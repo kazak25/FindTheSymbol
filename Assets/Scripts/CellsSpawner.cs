@@ -9,13 +9,17 @@ public class CellsSpawner : MonoBehaviour
     [SerializeField] private GameController _gameController;
     
     [SerializeField] private TaskSelection _taskSelection;
+    
     [SerializeField] private LevelSettings _levelSettings;
+    
     [SerializeField] private GetRandom _getRandom;
+    
     [SerializeField] private SymbolsSetView _symbolsSetView;
+    
     [SerializeField] private GameObject _cell;
+    
     [SerializeField] private Canvas _currentLevel;
     
-
     public void Easylevel(IReadOnlyList<Sprite> sprites)
 
     {
