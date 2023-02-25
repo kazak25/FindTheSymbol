@@ -39,7 +39,7 @@ public class CheckHit : MonoBehaviour
             var name = hit.collider.gameObject.name;
             _gameController.ObjectsSelection(name);
             
-            if (_gameController._isGameActive && hit.collider.gameObject.name == _gameMode.tempName)
+            if (_gameController.isGameActive && hit.collider.gameObject.name == _gameMode.tempName)
             {
                 _win.Play();
                 _gameState.isWinCondition = true;
@@ -57,7 +57,7 @@ public class CheckHit : MonoBehaviour
                 StartCoroutine(ShowButtonNextLevel());
             }
             
-            if(_gameController._isGameActive && hit.collider.gameObject.name != _gameMode.tempName)
+            if(_gameController.isGameActive && hit.collider.gameObject.name != _gameMode.tempName)
             {
                 _fail.Play();
                 hit.collider.gameObject.transform.DORotate(new Vector3(0, 180, 0), 3);
