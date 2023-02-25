@@ -17,14 +17,20 @@ public class GameState : MonoBehaviour, IStateWithoutContext
    
     
    // private GameController _gameController;
-    private IReadOnlyList<Sprite> _sprites = new List<Sprite>();
+
+  
+    private IReadOnlyList<Sprite>  _sprites = new List<Sprite>();
     private StateMachine _stateMachine;
    
+
     
     public void Array(IReadOnlyList<Sprite> sprites)
     {
         _sprites = sprites;
     }
+    
+   
+    
 
     public void Initialize(StateMachine stateMachine)
     {
@@ -49,21 +55,22 @@ public class GameState : MonoBehaviour, IStateWithoutContext
             case 1:
             {
                 _gameController.ChildrenDelete(_currentLevel);
-                _levelDifficult.MediumLevel(_sprites);
-                _levelSettings.NextLevelSetting();
+                _levelDifficult.MediumLevel(_sprites);    
+                _levelSettings.NextLevelSetting();   // Как внутри этого метода вызывать нужный уровень по Дженерикам
                 break;
             }
             case 2:
             {
-                _gameController.ChildrenDelete(_currentLevel);
                 isLastLevel = true;
-                _levelDifficult.HardLevel(_sprites);
+                _gameController.ChildrenDelete(_currentLevel);
+               _levelDifficult.HardLevel(_sprites);
                _levelSettings.NextLevelSetting();
                 break;
             }
             default: return;
         }
     }
+    
     
     
 }

@@ -10,36 +10,36 @@ public class CellsSpawner : MonoBehaviour
     
     [SerializeField] private TaskSelection _taskSelection;
     [SerializeField] private LevelSettings _levelSettings;
-
+    [SerializeField] private GetRandom _getRandom;
     [SerializeField] private SymbolsSetView _symbolsSetView;
     [SerializeField] private GameObject _cell;
     [SerializeField] private Canvas _currentLevel;
     
 
-    public void Easylevel(List<Sprite> sprites)
+    public void Easylevel(IReadOnlyList<Sprite> sprites)
 
     {
         _levelSettings.EasyLevelSettings();
         CreateLevel(sprites);
     }
-    public void MediumLevel(List<Sprite> sprites)
+    public void MediumLevel(IReadOnlyList<Sprite> sprites)
     {
         _levelSettings.MediumLevelSettings();
         CreateLevel(sprites);
     }
-    public void HardLevel(List<Sprite> sprites)
+    public void HardLevel(IReadOnlyList<Sprite> sprites)
     {
         _levelSettings.HardLevelSettings();
         CreateLevel(sprites);
     }
 
-    private void CreateLevel(List<Sprite> sprites)
+    private void CreateLevel(IReadOnlyList<Sprite> sprites)
     {
         int x = _levelSettings.startPositionX;
         int y = _levelSettings.startPositionY;
         var cellCount = _levelSettings.columnsCount * _levelSettings.elementsСountPerLine;
-
-        var tempSprite= _gameController.GetRandomObjects(sprites, cellCount);
+    
+        var tempSprite= _getRandom.GetRandomObject(sprites, cellCount);
         _taskSelection.Initialize(tempSprite);
         
         int spriteNumber = 0;
@@ -49,13 +49,12 @@ public class CellsSpawner : MonoBehaviour
             {
                 var cell = Instantiate(_cell,_currentLevel.transform);
                 cell.transform.position = new Vector3(x, y, 0);
-
+    
                 var icon = Instantiate(_symbolsSetView,cell.transform);
                 icon.Initialize(tempSprite[spriteNumber]);
                 
                 icon.transform.position = new Vector3(x, y, 0);
                 icon.name = tempSprite[spriteNumber].name;
-                
                 x += _levelSettings.distanceBetweenElements;
                 spriteNumber++;
             }
@@ -63,4 +62,5 @@ public class CellsSpawner : MonoBehaviour
             y -= _levelSettings.lineSpacing;
         }
     }
+    
 }

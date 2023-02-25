@@ -58,8 +58,8 @@ public class CheckHit : MonoBehaviour
             if(_gameController._isGameActive && hit.collider.gameObject.name != _gameMode.tempName)
             {
                 _fail.Play();
-                hit.collider.gameObject.transform.DOShakePosition(1f, 0.5f)
-                    .OnComplete(() => hit.collider.gameObject.transform.position = startPosition);
+                hit.collider.gameObject.transform.DORotate(new Vector3(0, 180, 0), 3);
+                //.OnComplete(() => hit.collider.gameObject.transform.position = startPosition);
             }
         }
     }

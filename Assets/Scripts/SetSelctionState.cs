@@ -6,7 +6,7 @@ using UnityEngine;
 public class SetSelctionState : MonoBehaviour, IStateWithContext<GameController>
 {
     [SerializeField] private GameObject _setSelectionObject;
-    [SerializeField] private CanvasGroup _canvasGroup;
+    //[SerializeField] private CanvasGroup _canvasGroup;
 
     private GameController _gameController;
     
@@ -20,7 +20,7 @@ public class SetSelctionState : MonoBehaviour, IStateWithContext<GameController>
     {
         _gameController = gameController;
         _setSelectionObject.SetActive(true);
-        _canvasGroup.DOFade(1, 3f);
+        //_canvasGroup.DOFade(1, 3f);
         _gameController.AddStartIcons();
        _gameController.SetSelection();
     }
@@ -28,6 +28,6 @@ public class SetSelctionState : MonoBehaviour, IStateWithContext<GameController>
 
     public void Exit()
     {
-        _canvasGroup.DOFade(0f,0.5f).OnComplete(() => _setSelectionObject.gameObject.SetActive(false));
+       // _canvasGroup.DOFade(0f,0.5f).OnComplete(() => _setSelectionObject.gameObject.SetActive(false));
     }
 }
