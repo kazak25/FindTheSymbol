@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class GameState : MonoBehaviour, IStateWithoutContext
 {
     // Start is called before the first frame update
-    [SerializeField] private CellsSpawner _levelDifficult;
+    [SerializeField] private CellsSpawner _cellsCurrentLevel;
     [SerializeField] private GameObject _currentLevel;
     [SerializeField] private GameController _gameController;
     [SerializeField] private LevelSettings _levelSettings;
+    [SerializeField] private float _waitingTime;
     
     public int _levelNumber;
     public bool isWinCondition = false;
@@ -29,9 +31,6 @@ public class GameState : MonoBehaviour, IStateWithoutContext
         _sprites = sprites;
     }
     
-   
-    
-
     public void Initialize(StateMachine stateMachine)
     {
         _stateMachine = stateMachine;
@@ -39,7 +38,8 @@ public class GameState : MonoBehaviour, IStateWithoutContext
 
     public void Enter()
     {
-       _levelDifficult.Easylevel(_sprites);
+       _cellsCurrentLevel.Easylevel(_sprites);
+       StartCoroutine(CountDown());
     }
 
     
@@ -55,7 +55,7 @@ public class GameState : MonoBehaviour, IStateWithoutContext
             case 1:
             {
                 _gameController.ChildrenDelete(_currentLevel);
-                _levelDifficult.MediumLevel(_sprites);    
+                _cellsCurrentLevel.MediumLevel(_sprites);    
                 _levelSettings.NextLevelSetting();   // Как внутри этого метода вызывать нужный уровень по Дженерикам
                 break;
             }
@@ -63,12 +63,40 @@ public class GameState : MonoBehaviour, IStateWithoutContext
             {
                 isLastLevel = true;
                 _gameController.ChildrenDelete(_currentLevel);
-               _levelDifficult.HardLevel(_sprites);
+               _cellsCurrentLevel.HardLevel(_sprites);
                _levelSettings.NextLevelSetting();
                 break;
             }
             default: return;
         }
+    }
+    IEnumerator CountDown()
+    {
+    
+        // while (count > 0) { 
+        //
+        //     textmeshprougui.text = count.ToString(); 
+        //
+        //     yield return new WaitForSeconds(1f); 
+        //
+        //     count--; 
+        // }
+    
+        // textmeshprougui.text = "GO!";
+        // DOTween.To(()=> image.transform.rotation, 
+        
+        //     x=> image.transform.rotation = x, 
+        //     new Vector3(0f, 180f, 0f), 1f);
+        // yield return new WaitForSeconds(1f); 
+        yield return new WaitForSeconds(_waitingTime);
+        foreach (var cel in _cellsCurrentLevel.Cels)
+        {
+            var sprite = cel.GetComponentInChildren<SpriteRenderer>();   // как сделать по - другому ?
+            cel.transform.DORotate(new Vector3(0, 180, 0), 3);
+            yield return null;
+            sprite.DOColor(Color.clear, 2);
+        }
+        
     }
     
     

@@ -14,8 +14,9 @@ public class CellsSpawner : MonoBehaviour
     [SerializeField] private SymbolsSetView _symbolsSetView;
     [SerializeField] private GameObject _cell;
     [SerializeField] private Canvas _currentLevel;
-    
 
+    public IReadOnlyList<GameObject> Cels => _cells;
+    private List<GameObject> _cells = new List<GameObject>();
     public void Easylevel(IReadOnlyList<Sprite> sprites)
 
     {
@@ -48,6 +49,7 @@ public class CellsSpawner : MonoBehaviour
             for (int i = 0; i < _levelSettings.elementsСountPerLine; i++)
             {
                 var cell = Instantiate(_cell,_currentLevel.transform);
+                _cells.Add(cell);
                 cell.transform.position = new Vector3(x, y, 0);
     
                 var icon = Instantiate(_symbolsSetView,cell.transform);

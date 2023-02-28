@@ -2205,11 +2205,7 @@ GameObject:
   - component: {fileID: 1266187605}
   - component: {fileID: 1266187606}
   - component: {fileID: 1266187608}
-  - component: {fileID: 1266187611}
-  - component: {fileID: 1266187610}
   - component: {fileID: 1266187609}
-  - component: {fileID: 1266187612}
-  - component: {fileID: 1266187613}
   - component: {fileID: 1266187614}
   - component: {fileID: 1266187618}
   - component: {fileID: 1266187615}
@@ -2392,54 +2388,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46aabb3ae68e4e24a817a4cac958df2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1266187610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1266187600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecfaaa54b4b1409a8b60d867500a222b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1266187611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1266187600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77b2fd9ed4965ef4db68aaa173695459, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1266187612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1266187600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f42495bbfcd5462183f10978d8950ed1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1266187613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1266187600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68a2bddbf0d8405ba66df611fe2403e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!225 &1266187614
@@ -2727,10 +2675,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b181f5090ef7e5945867d58727280083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelDifficult: {fileID: 1266187618}
+  _cellsCurrentLevel: {fileID: 1266187618}
   _currentLevel: {fileID: 1137344093}
   _gameController: {fileID: 1266187605}
   _levelSettings: {fileID: 1266187619}
+  _waitingTime: 5
   _levelNumber: 0
   isWinCondition: 0
   isLastLevel: 0
