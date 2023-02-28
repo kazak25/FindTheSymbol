@@ -11,8 +11,8 @@ public class TaskSelection : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
     
-     private IReadOnlyList<Sprite> _sprites = new List<Sprite>();
-     private readonly List<String> _spritesNames = new List<string>();
+    private IReadOnlyList<Sprite> _sprites = new List<Sprite>();
+    private readonly List<String> _spritesNames = new List<string>();
     
     private TextMeshPro _textName;
     public string tempName { get ; private set; }

@@ -11,10 +11,13 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-  public UnityEvent _PlayMode;
+  public UnityEvent PlayMode;
 
   [SerializeField] public GameObject _nextLevelbutton;
   [SerializeField] public GameObject _restartButton;
+  
+  [SerializeField] private GameObject _setSelectionObject;
+  [SerializeField] private GameObject _cell;
   
   [SerializeField] private ScriptableObject _scriptableObject;
   [SerializeField] private StateMachine _stateMachine;
@@ -22,10 +25,9 @@ public class GameController : MonoBehaviour
   [SerializeField] private GameState _gameState;
   [SerializeField] private SymbolsSetView _symbolsSetView;
   [SerializeField] private Canvas _setSelection;
-  [SerializeField] private GameObject _setSelectionObject;
-  [SerializeField] private GameObject _cell;
+  
   public IReadOnlyList<Sprite> Icons => _icons;
-  public bool _isGameActive = false;
+  public bool isGameActive = false;
  
   
   private List<Sprite> _icons = new List<Sprite>();
@@ -57,17 +59,17 @@ public class GameController : MonoBehaviour
     {
       case "Mystery":
       {
-        StartGame(_scriptableObject.Cars);
+        StartGame(_scriptableObject.Mystery);
         break;
       }
       case "Animals":
       {
-        StartGame(_scriptableObject.Letters);
+        StartGame(_scriptableObject.Animals);
         break;
       }
       case "Food":
       {
-        StartGame(_scriptableObject.Numbers);
+        StartGame(_scriptableObject.Food);
         break;
       }
       default: return;
@@ -79,8 +81,8 @@ public class GameController : MonoBehaviour
     _setSelectionObject.SetActive(false);
     _gameState.Array(sprites);
     _stateMachine.Enter<GameState>();
-    _PlayMode.Invoke();
-    _isGameActive = true;
+    PlayMode.Invoke();
+    isGameActive = true;
 
   }
 
