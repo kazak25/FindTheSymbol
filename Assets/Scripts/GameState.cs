@@ -5,32 +5,28 @@ using DG.Tweening;
 
 public class GameState : MonoBehaviour, IStateWithoutContext
 {
-    // Start is called before the first frame update
     [SerializeField] private CellsSpawner _cellsCurrentLevel;
+    
     [SerializeField] private GameObject _currentLevel;
+    
     [SerializeField] private GameController _gameController;
+    
     [SerializeField] private LevelSettings _levelSettings;
+    
     [SerializeField] private float _waitingTime;
     
     public int _levelNumber;
     public bool isWinCondition = false;
     public bool isLastLevel = false;
-   
-   
-    
-   // private GameController _gameController;
 
-  
     private IReadOnlyList<Sprite>  _sprites = new List<Sprite>();
     private StateMachine _stateMachine;
    
-
-    
     public void Array(IReadOnlyList<Sprite> sprites)
     {
         _sprites = sprites;
     }
-    
+
     public void Initialize(StateMachine stateMachine)
     {
         _stateMachine = stateMachine;
@@ -42,7 +38,6 @@ public class GameState : MonoBehaviour, IStateWithoutContext
        StartCoroutine(CountDown());
     }
 
-    
     public void Exit()
     {
         _gameController.ChildrenDelete(_currentLevel);
@@ -72,6 +67,7 @@ public class GameState : MonoBehaviour, IStateWithoutContext
             default: return;
         }
     }
+    
     IEnumerator CountDown()
     {
     

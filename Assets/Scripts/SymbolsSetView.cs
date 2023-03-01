@@ -6,13 +6,10 @@ using UnityEngine;
 
 public class SymbolsSetView : MonoBehaviour
 {
-  
-   
-   
+
    [SerializeField] private SpriteRenderer _sprite;
    [SerializeField] private TextMeshProUGUI _name;
-
-
+   
    [UsedImplicitly]
    public void Initialize(Sprite sprite)
    {
@@ -23,6 +20,5 @@ public class SymbolsSetView : MonoBehaviour
    {
       _sprite.sprite = sprite;
       _name.text = name;
-   
    }
 }
