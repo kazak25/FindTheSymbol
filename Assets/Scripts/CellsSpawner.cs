@@ -42,6 +42,10 @@ public class CellsSpawner : MonoBehaviour
 
     private void CreateLevel(IReadOnlyList<Sprite> sprites)
     {
+        if (_cells.Count > 0)
+        {
+            _cells.Clear();
+        }
         int x = _levelSettings.startPositionX;
         int y = _levelSettings.startPositionY;
         var cellCount = _levelSettings.columnsCount * _levelSettings.elementsСountPerLine;
