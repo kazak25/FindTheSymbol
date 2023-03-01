@@ -55,16 +55,18 @@ public class GameState : MonoBehaviour, IStateWithoutContext
             case 1:
             {
                 _gameController.ChildrenDelete(_currentLevel);
-                _cellsCurrentLevel.MediumLevel(_sprites);    
+                _cellsCurrentLevel.MediumLevel(_sprites);
                 _levelSettings.NextLevelSetting();   // Как внутри этого метода вызывать нужный уровень по Дженерикам
+                StartCoroutine(CountDown());
                 break;
             }
             case 2:
             {
                 isLastLevel = true;
                 _gameController.ChildrenDelete(_currentLevel);
-               _cellsCurrentLevel.HardLevel(_sprites);
-               _levelSettings.NextLevelSetting();
+                _cellsCurrentLevel.HardLevel(_sprites);
+                _levelSettings.NextLevelSetting();
+                StartCoroutine(CountDown());
                 break;
             }
             default: return;
@@ -91,6 +93,7 @@ public class GameState : MonoBehaviour, IStateWithoutContext
         yield return new WaitForSeconds(_waitingTime);
         foreach (var cel in _cellsCurrentLevel.Cels)
         {
+            Debug.Log(cel.name);
             var sprite = cel.GetComponentInChildren<SpriteRenderer>();   // как сделать по - другому ?
             cel.transform.DORotate(new Vector3(0, 180, 0), 3);
             yield return null;

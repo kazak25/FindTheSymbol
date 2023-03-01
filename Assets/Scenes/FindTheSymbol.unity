@@ -2216,6 +2216,7 @@ GameObject:
   - component: {fileID: 1266187620}
   - component: {fileID: 1266187622}
   - component: {fileID: 1266187623}
+  - component: {fileID: 1266187624}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2360,6 +2361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 519f2fbd586987642899d7a40f331f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cellRotationController: {fileID: 1266187624}
   _gameController: {fileID: 1266187605}
   _gameState: {fileID: 1266187621}
   _gameMode: {fileID: 1266187608}
@@ -2679,7 +2681,7 @@ MonoBehaviour:
   _currentLevel: {fileID: 1137344093}
   _gameController: {fileID: 1266187605}
   _levelSettings: {fileID: 1266187619}
-  _waitingTime: 5
+  _waitingTime: 2
   _levelNumber: 0
   isWinCondition: 0
   isLastLevel: 0
@@ -2750,6 +2752,18 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8d50746c9eb07734bb2ae464725e2eef, type: 3}
   - {fileID: 21300000, guid: d295f863c0e4e144bb7e3039a8801993, type: 3}
   - {fileID: 21300000, guid: 2bf99420fd4e4e34e9476adaa495a3e5, type: 3}
+--- !u!114 &1266187624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266187600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605c20ef1f20cca4aae7ede86da96462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1275605912
 GameObject:
   m_ObjectHideFlags: 0
