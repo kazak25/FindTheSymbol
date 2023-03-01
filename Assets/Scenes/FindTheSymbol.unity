@@ -2323,7 +2323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f28365842fd3848ab49a5fd9cd6c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _PlayMode:
+  PlayMode:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1266187608}
@@ -2340,15 +2340,15 @@ MonoBehaviour:
         m_CallState: 2
   _nextLevelbutton: {fileID: 662529850}
   _restartButton: {fileID: 1495831703}
+  _setSelectionObject: {fileID: 1685139064}
+  _cell: {fileID: 2410580740573660120, guid: 4705527f987f07d41b027e1b6efd58ac, type: 3}
   _scriptableObject: {fileID: 1266187623}
   _stateMachine: {fileID: 1266187609}
   _setSelctionState: {fileID: 1266187620}
   _gameState: {fileID: 1266187621}
   _symbolsSetView: {fileID: 3838780372143851785, guid: 1b740ce079be67a4796c9b9d97f67bd1, type: 3}
   _setSelection: {fileID: 2068263211}
-  _setSelectionObject: {fileID: 1685139064}
-  _cell: {fileID: 2410580740573660120, guid: 4705527f987f07d41b027e1b6efd58ac, type: 3}
-  _isGameActive: 0
+  isGameActive: 0
 --- !u!114 &1266187606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2709,7 +2709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f755fad6ad3d4f843aa9aa9ab55e5395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cars:
+  _mystery:
   - {fileID: 21300000, guid: b7a0625b349f7d44ea536e8e2802afad, type: 3}
   - {fileID: 21300000, guid: 347dc0185037ed6418dce10c7875a59f, type: 3}
   - {fileID: 21300000, guid: 4adc21c550305c64ab80cc66ddf20930, type: 3}
@@ -2726,7 +2726,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 293e995a2690dbe4fb5961fcb853ff12, type: 3}
   - {fileID: 21300000, guid: 06745d15dbbcd1849bf87a5756b470b6, type: 3}
   - {fileID: 21300000, guid: 679bbdb6671f8344298fdf02f5e63130, type: 3}
-  _letters:
+  _animals:
   - {fileID: 21300000, guid: d9e478f2fa118da4abc7a2dc197980ff, type: 3}
   - {fileID: 21300000, guid: 9c03eb06f37b95b44890e1c52f34f7d7, type: 3}
   - {fileID: 21300000, guid: e92d0de3c1c94744db69388dc7652132, type: 3}
@@ -2739,19 +2739,21 @@ MonoBehaviour:
   - {fileID: 21300000, guid: be6eeb42129343d46b5ee85492d3dde7, type: 3}
   - {fileID: 21300000, guid: feff8bcee2c21304ab070747b2d0423a, type: 3}
   - {fileID: 21300000, guid: 4b1614b9d2e78b54795a121ca7ca8b20, type: 3}
-  _numbers:
+  _food:
   - {fileID: 21300000, guid: f2c7eff8e5fc9b04dad80f85201e5ebb, type: 3}
   - {fileID: 21300000, guid: 8c780ed8477d468409683f00e91283d5, type: 3}
   - {fileID: 21300000, guid: e761b08303f23f741a09c4f0f56b9e71, type: 3}
   - {fileID: 21300000, guid: 2da5720670843944b9005c4a8ee5a6e9, type: 3}
   - {fileID: 21300000, guid: 7226677f302786042abff742c22e0343, type: 3}
+  - {fileID: 21300000, guid: f003c4e6b5566a54abd3ee06f7b7c9f2, type: 3}
   - {fileID: 21300000, guid: 6aad7092ff0bb8a41b21a8d8f10e6d9a, type: 3}
+  - {fileID: 21300000, guid: 2bf99420fd4e4e34e9476adaa495a3e5, type: 3}
+  - {fileID: 21300000, guid: d22be8ec0a8f2f94fa3249ba417e7d8c, type: 3}
   - {fileID: 21300000, guid: c0d866bf71a4b904ebec1afe4313be82, type: 3}
   - {fileID: 21300000, guid: 913c662a29cf4c74abe8acfe7b96a87f, type: 3}
   - {fileID: 21300000, guid: b081d665c9b112d45a7059314edde2f4, type: 3}
   - {fileID: 21300000, guid: 8d50746c9eb07734bb2ae464725e2eef, type: 3}
   - {fileID: 21300000, guid: d295f863c0e4e144bb7e3039a8801993, type: 3}
-  - {fileID: 21300000, guid: 2bf99420fd4e4e34e9476adaa495a3e5, type: 3}
 --- !u!114 &1266187624
 MonoBehaviour:
   m_ObjectHideFlags: 0

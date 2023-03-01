@@ -24,7 +24,7 @@ public class LevelSettings : MonoBehaviour
    {
       //_gameController.ChildrenDelete(_currentLevel);
       _nextLevelbutton.SetActive(false);
-      _gameController._PlayMode.Invoke();
+      _gameController.PlayMode.Invoke();
    }
    public  void EasyLevelSettings()
    {
