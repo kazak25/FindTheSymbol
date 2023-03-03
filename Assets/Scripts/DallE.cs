@@ -34,7 +34,7 @@ namespace OpenAI
             inputField.enabled = false;
             loadingLabel.SetActive(true);
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 9; i++)
             {
                 var response = await openai.CreateImage(new CreateImageRequest
                 {
@@ -56,6 +56,8 @@ namespace OpenAI
                         texture.LoadImage(request.downloadHandler.data);
                        var sprite = Sprite.Create(texture, new Rect(0, 0, 512, 512), new Vector2(0.5f,0.5f), 1f);
                        _currentLevel.transform.localScale = new Vector3(0.35f, 0.35f, 0);
+                       var collider = _currentLevel.GetComponent<BoxCollider>();
+                       collider.size = new Vector3(500, 500, 0);
                         _dalleImage.Add(sprite);
                         _sprite.sprite = sprite;
                       

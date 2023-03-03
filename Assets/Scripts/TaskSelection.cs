@@ -12,12 +12,15 @@ public class TaskSelection : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Image _dalleImage;
+    [SerializeField] private CheckHit _checkHit;
     
     public bool _isCountDown { get; private set; }
     public string tempName { get ; private set; }
+    public Sprite tempSprite { get; private set; }
     
     private IReadOnlyList<Sprite> _sprites = new List<Sprite>();
     private  List<String> _spritesNames = new List<string>();
+    private List<Sprite> _tempDalleSprites = new List<Sprite>();
     private TextMeshPro _textName;
     private bool isDalleImage = false;
     private int _waitingTime = 5;
@@ -31,7 +34,10 @@ public class TaskSelection : MonoBehaviour
 
     public void ListNameClear()
     {
-        _spritesNames.Clear();
+        
+        _spritesNames?.Clear();
+        _tempDalleSprites?.Clear();
+        
     }
 
     private int GetRandomName()
@@ -50,6 +56,10 @@ public class TaskSelection : MonoBehaviour
     }
     public IEnumerator  CountDown()
     {
+        if (_dalleImage.sprite != null)
+        {
+            _dalleImage.sprite = null;
+        }
         _isCountDown = true;
         var tempTime = _waitingTime;
         while (tempTime > 0)
@@ -66,22 +76,27 @@ public class TaskSelection : MonoBehaviour
         
         var randomIndex = GetRandomName();
         Debug.Log(_spritesNames.Count);
+        tempSprite = _sprites[randomIndex];
         tempName = _sprites[randomIndex].name;
 
-        while (_spritesNames.Contains(tempName))
+        while (_tempDalleSprites.Contains(tempSprite))
         {
             randomIndex = GetRandomName();
             tempName = _sprites[randomIndex].name;
+           tempSprite = _sprites[randomIndex];
         }
+        _tempDalleSprites.Add(tempSprite);
         _spritesNames.Add(tempName);
        
         UnityEngine.Color tempColor = Random.ColorHSV();
         _text.color = tempColor;
-        _text.text = "Find " + tempName;
+        _text.text = "Find "+ tempName;
+        _dalleImage.sprite = tempSprite;
         if (isDalleImage)
         { 
             _dalleImage.enabled = true;
-            _dalleImage.sprite = _sprites[randomIndex];
+            _dalleImage.sprite = tempSprite;
+            //_checkHit.Initialize(_dalleImage.sprite);
         }
         
         _isCountDown = false;
