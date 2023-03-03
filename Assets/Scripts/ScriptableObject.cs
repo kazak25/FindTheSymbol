@@ -13,11 +13,12 @@ public class ScriptableObject : MonoBehaviour
     
     public IReadOnlyList<List<Sprite>> AllObjects => _allObjects;
     public IReadOnlyList<string> AllObjectsNames => _allObjectsNames;
-
+    
     [SerializeField] private List<Sprite> _mystery;
     [SerializeField] private List<Sprite> _animals;
     [SerializeField] private List<Sprite> _food;
-
+    
+    
     private readonly List<List<Sprite>>_allObjects = new List<List<Sprite>>();
     private readonly List<string> _allObjectsNames = new List<string>();
     

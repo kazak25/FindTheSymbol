@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using JetBrains.Annotations;
+using OpenAI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -25,6 +26,10 @@ public class GameController : MonoBehaviour
   [SerializeField] private GameState _gameState;
   [SerializeField] private SymbolsSetView _symbolsSetView;
   [SerializeField] private Canvas _setSelection;
+  [SerializeField] private DallE _dalleSprites;
+  [SerializeField] private Canvas _dalleScreen;
+  [SerializeField] private Canvas _startScreen;
+  [SerializeField] private Canvas _standartScreen;
   
   public IReadOnlyList<Sprite> Icons => _icons;
   public bool isGameActive = false;
@@ -41,6 +46,7 @@ public class GameController : MonoBehaviour
 
   public void SetSelection()
   {
+    
     for (var i = 0; i < _icons.Count; i++)
     {
       var cell = Instantiate(_cell, _setSelection.transform);
@@ -84,6 +90,18 @@ public class GameController : MonoBehaviour
     PlayMode.Invoke();
     isGameActive = true;
 
+  }
+
+  [UsedImplicitly]
+  public void StandartSprites()
+  {
+    _startScreen.enabled = false;
+    _standartScreen.enabled = true;
+  }
+
+  public void DalleStartGame()
+  {
+    StartGame(_dalleSprites.DalleImage);
   }
 
   [UsedImplicitly]

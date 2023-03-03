@@ -14,6 +14,7 @@ public class CheckHit : MonoBehaviour
     
     [SerializeField] private AudioSource _win;
     [SerializeField] private AudioSource _fail;
+    [SerializeField] private TaskSelection _taskSelection;
    
 
     private void Update()
@@ -27,6 +28,11 @@ public class CheckHit : MonoBehaviour
     private void Raycast()
     {
         if (_gameState.isWinCondition)
+        {
+            return;
+        }
+
+        if (_taskSelection._isCountDown)
         {
             return;
         }

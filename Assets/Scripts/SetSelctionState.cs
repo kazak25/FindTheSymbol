@@ -15,16 +15,22 @@ public class SetSelctionState : MonoBehaviour, IStateWithContext<GameController>
     {
         _stateMachine = stateMachine;
     }
+    
 
     public void Enter(GameController gameController)
+    {
+        SetStandart(gameController);
+    }
+
+    private void SetStandart(GameController gameController)
     {
         _gameController = gameController;
         _setSelectionObject.SetActive(true);
         //_canvasGroup.DOFade(1, 3f);
         _gameController.AddStartIcons();
-       _gameController.SetSelection();
+        _gameController.SetSelection();
     }
-   
+    
 
     public void Exit()
     {

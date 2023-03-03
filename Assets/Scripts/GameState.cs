@@ -86,7 +86,7 @@ public class GameState : MonoBehaviour, IStateWithoutContext
         //     x=> image.transform.rotation = x, 
         //     new Vector3(0f, 180f, 0f), 1f);
         // yield return new WaitForSeconds(1f); 
-        yield return new WaitForSeconds(_waitingTime);
+        yield return new WaitForSeconds(5);
         foreach (var cel in _cellsCurrentLevel.Cels)
         {
             Debug.Log(cel.name);
