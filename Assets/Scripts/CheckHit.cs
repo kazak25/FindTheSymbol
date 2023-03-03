@@ -1,6 +1,7 @@
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class CheckHit : MonoBehaviour
@@ -14,8 +15,15 @@ public class CheckHit : MonoBehaviour
     
     [SerializeField] private AudioSource _win;
     [SerializeField] private AudioSource _fail;
-   
+    [SerializeField] private TaskSelection _taskSelection;
 
+   [SerializeField] private Image _dalleImage;
+
+
+    // public void Initialize(Sprite dalleImage)
+    // {
+    //     _dalleImage = dalleImage;
+    // }
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -31,6 +39,11 @@ public class CheckHit : MonoBehaviour
             return;
         }
 
+        if (_taskSelection._isCountDown)
+        {
+            return;
+        }
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         
@@ -41,8 +54,9 @@ public class CheckHit : MonoBehaviour
             var spriteRenderer = hit.collider.gameObject.GetComponent<SpriteRenderer>();
             _gameController.ObjectsSelection(name);
             
-            if (_gameController.isGameActive && hit.collider.gameObject.name == _gameMode.tempName)
+            if (_gameController.isGameActive &&  spriteRenderer.sprite==_dalleImage.sprite) //|| name == _gameMode.tempName )
             {
+                Debug.Log("МЫ ТУТ!!!");
                 _win.Play();
                 _gameState.isWinCondition = true;
                 var scale = hit.collider.gameObject.transform.localScale;
@@ -59,8 +73,9 @@ public class CheckHit : MonoBehaviour
                 StartCoroutine(ShowButtonNextLevel());
             }
             
-            if(_gameController.isGameActive && hit.collider.gameObject.name != _gameMode.tempName)
+            if(_gameController.isGameActive && hit.collider.gameObject.name != _gameMode.tempName ||  spriteRenderer.sprite!=_dalleImage.sprite)
             {
+                Debug.Log("МЫ ПРОИГРАЛИ!!!");
                 _fail.Play();
                 _cellRotationController.ShowIcon(spriteRenderer,_gameState.isWinCondition);
             }
