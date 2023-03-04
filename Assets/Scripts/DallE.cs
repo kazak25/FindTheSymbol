@@ -16,6 +16,7 @@ namespace OpenAI
         [SerializeField] private GameObject loadingLabel;
         [SerializeField] UnityEvent loadingImageCompleted;
         [SerializeField] private GameObject _currentLevel;
+        [SerializeField] private BoxCollider _currentLevelCollider;
         
         public IReadOnlyList<Sprite> DalleImage => _dalleImage;
 
@@ -56,8 +57,7 @@ namespace OpenAI
                         texture.LoadImage(request.downloadHandler.data);
                        var sprite = Sprite.Create(texture, new Rect(0, 0, 512, 512), new Vector2(0.5f,0.5f), 1f);
                        _currentLevel.transform.localScale = new Vector3(0.35f, 0.35f, 0);
-                       var collider = _currentLevel.GetComponent<BoxCollider>();
-                       collider.size = new Vector3(500, 500, 0);
+                       _currentLevelCollider.size = new Vector3(500, 500, 0);
                         _dalleImage.Add(sprite);
                         _sprite.sprite = sprite;
                       
