@@ -30,7 +30,8 @@ public class GameController : MonoBehaviour
   [SerializeField] private Canvas _dalleScreen;
   [SerializeField] private Canvas _startScreen;
   [SerializeField] private Canvas _standartScreen;
-  
+  [SerializeField] private BoxCollider _currentLevelCollider;
+  [SerializeField] private GameObject _currentLevel;
   public IReadOnlyList<Sprite> Icons => _icons;
   public bool isGameActive = false;
  
@@ -128,6 +129,8 @@ public class GameController : MonoBehaviour
   public void RestartScene()
   {
     SceneManager.LoadSceneAsync(GlobalConstants.SceneGame);
+    _currentLevel.transform.localScale = new Vector3(35f, 35f, 0);
+    _currentLevelCollider.size = new Vector3(5, 5, 0);
   }
 }
   

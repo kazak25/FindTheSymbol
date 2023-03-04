@@ -12,6 +12,7 @@ public class TaskSelection : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Image _dalleImage;
+    [SerializeField] private GameObject _showImage;
     [SerializeField] private CheckHit _checkHit;
     
     public bool _isCountDown { get; private set; }
@@ -56,6 +57,7 @@ public class TaskSelection : MonoBehaviour
     }
     public IEnumerator  CountDown()
     {
+        _showImage.SetActive(false);
         if (_dalleImage.sprite != null)
         {
             _dalleImage.sprite = null;
@@ -94,7 +96,8 @@ public class TaskSelection : MonoBehaviour
         _dalleImage.sprite = tempSprite;
         if (isDalleImage)
         { 
-            _dalleImage.enabled = true;
+            _showImage.SetActive(true);
+            //_dalleImage.enabled = true;
             _dalleImage.sprite = tempSprite;
             //_checkHit.Initialize(_dalleImage.sprite);
         }

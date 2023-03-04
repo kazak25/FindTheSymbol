@@ -70,32 +70,17 @@ public class GameState : MonoBehaviour, IStateWithoutContext
     
     IEnumerator CountDown()
     {
-    
-        // while (count > 0) { 
-        //
-        //     textmeshprougui.text = count.ToString(); 
-        //
-        //     yield return new WaitForSeconds(1f); 
-        //
-        //     count--; 
-        // }
-    
-        // textmeshprougui.text = "GO!";
-        // DOTween.To(()=> image.transform.rotation, 
-        
-        //     x=> image.transform.rotation = x, 
-        //     new Vector3(0f, 180f, 0f), 1f);
-        // yield return new WaitForSeconds(1f); 
         yield return new WaitForSeconds(5);
         foreach (var cel in _cellsCurrentLevel.Cels)
         {
-            Debug.Log(cel.name);
+           
             var sprite = cel.GetComponentInChildren<SpriteRenderer>();   // как сделать по - другому ?
             cel.transform.DORotate(new Vector3(0, 180, 0), 3);
+            var icon = cel.GetComponentInChildren<SpriteRenderer>(); // как сделать по - другому ?
+            icon.flipX = true;
             yield return null;
             sprite.DOColor(Color.clear, 2);
         }
-        
     }
     
     
