@@ -51,7 +51,7 @@ public class GameState : MonoBehaviour, IStateWithoutContext
             {
                 _gameController.ChildrenDelete(_currentLevel);
                 _cellsCurrentLevel.MediumLevel(_sprites);
-                _levelSettings.NextLevelSetting();   // Как внутри этого метода вызывать нужный уровень по Дженерикам
+                _levelSettings.NextLevelSetting();   // Как внутри этого метода вызывать нужный уровень по Дженерикам ???
                 StartCoroutine(CountDown());
                 break;
             }

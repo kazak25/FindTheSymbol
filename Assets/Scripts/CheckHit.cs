@@ -15,15 +15,11 @@ public class CheckHit : MonoBehaviour
     
     [SerializeField] private AudioSource _win;
     [SerializeField] private AudioSource _fail;
+    
     [SerializeField] private TaskSelection _taskSelection;
-
-   [SerializeField] private Image _dalleImage;
-
-
-    // public void Initialize(Sprite dalleImage)
-    // {
-    //     _dalleImage = dalleImage;
-    // }
+    [SerializeField] private Image _dalleImage;
+    [SerializeField] private ModeSelection _modeSelection;
+   
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -49,14 +45,12 @@ public class CheckHit : MonoBehaviour
         
         if (Physics.Raycast(ray, out hit, 10000))
         {
-            var startPosition = hit.collider.gameObject.transform.position;
             var name = hit.collider.gameObject.name;
             var spriteRenderer = hit.collider.gameObject.GetComponent<SpriteRenderer>();
-            _gameController.ObjectsSelection(name);
+           _modeSelection.ObjectsSelection(name);
             
-            if (_gameController.isGameActive &&  spriteRenderer.sprite==_dalleImage.sprite) //|| name == _gameMode.tempName )
+            if (_modeSelection.isGameActive &&  spriteRenderer.sprite == _dalleImage.sprite)
             {
-                Debug.Log("МЫ ТУТ!!!");
                 _win.Play();
                 _gameState.isWinCondition = true;
                 var scale = hit.collider.gameObject.transform.localScale;
@@ -73,9 +67,9 @@ public class CheckHit : MonoBehaviour
                 StartCoroutine(ShowButtonNextLevel());
             }
             
-            if(_gameController.isGameActive && hit.collider.gameObject.name != _gameMode.tempName ||  spriteRenderer.sprite!=_dalleImage.sprite)
+            if(_modeSelection.isGameActive && hit.collider.gameObject.name != _gameMode.tempName
+               ||  spriteRenderer.sprite != _dalleImage.sprite)
             {
-                Debug.Log("МЫ ПРОИГРАЛИ!!!");
                 _fail.Play();
                 _cellRotationController.ShowIcon(spriteRenderer,_gameState.isWinCondition);
             }
