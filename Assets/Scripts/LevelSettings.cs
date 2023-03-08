@@ -3,14 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LevelSettings : MonoBehaviour
 {
-   [SerializeField] public GameObject _nextLevelbutton;
    [SerializeField] private GameController _gameController;
+   [SerializeField] private GameState _gameState;
+   [SerializeField] private BoxCollider _currentLevelCollider;
+   
    [SerializeField] private GameObject _currentLevel;
-   [SerializeField] private CellsSpawner _levelDifficult;
-  
+   [SerializeField] private GameObject _spawner;
+   [SerializeField] private GameObject _nextLevelbutton;
    
    public  int columnsCount;
    public  int elementsСountPerLine;
@@ -19,12 +22,33 @@ public class LevelSettings : MonoBehaviour
    public  int distanceBetweenElements;
    public  int lineSpacing;
    
-
-   public void NextLevelSetting()
+   private void Start()
    {
-      //_gameController.ChildrenDelete(_currentLevel);
+      _currentLevel.transform.localScale = new Vector3(35f, 35f, 0);
+      _currentLevelCollider.size = new Vector3(5, 5, 0);
+   }
+   public void NextLevelSettings(LevelDifficulty level, int levelNumber, IReadOnlyList<Sprite> sprites, 
+      IEnumerator countDown)
+   { 
+      _gameController.ChildrenDelete(_spawner);
+      switch (levelNumber)
+      {
+         case 1:
+         {
+            level.MediumLevel(sprites);
+            break;
+         }
+         case 2:
+         {
+            _gameState.isLastLevel = true;
+            level.HardLevel(sprites);
+            break;
+         }  
+         default: return;
+      }
       _nextLevelbutton.SetActive(false);
       _gameController.PlayMode.Invoke();
+      StartCoroutine(countDown);
    }
    public  void EasyLevelSettings()
    {

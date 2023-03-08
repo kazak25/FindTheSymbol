@@ -2,23 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using JetBrains.Annotations;
 
 public class GameState : MonoBehaviour, IStateWithoutContext
 {
-    [SerializeField] private CellsSpawner _cellsCurrentLevel;
-    
+    [SerializeField] private LevelDifficulty _levelDifficulty;
+    [SerializeField] private ScriptableObject _scriptableObject;
+    [SerializeField] private GameController _gameController;
+    [SerializeField] private LevelSettings _levelSettings;
+
     [SerializeField] private GameObject _currentLevel;
     
-    [SerializeField] private GameController _gameController;
-    
-    [SerializeField] private LevelSettings _levelSettings;
-    
-    [SerializeField] private float _waitingTime;
-    
-    public int _levelNumber;
-    public bool isWinCondition = false;
+   
+    public bool isWinCondition { get; private set; }
     public bool isLastLevel = false;
-
+    
+    private int _levelNumber;
     private IReadOnlyList<Sprite>  _sprites = new List<Sprite>();
     private StateMachine _stateMachine;
    
@@ -34,44 +33,38 @@ public class GameState : MonoBehaviour, IStateWithoutContext
 
     public void Enter()
     {
-       _cellsCurrentLevel.Easylevel(_sprites);
+       _levelDifficulty.Easylevel(_sprites);
        StartCoroutine(CountDown());
     }
-
+    [UsedImplicitly]
+    public void ChangeLevelNumber()
+    {
+        _levelNumber++;
+    }
     public void Exit()
     {
         _gameController.ChildrenDelete(_currentLevel);
     }
-
+    
+    [UsedImplicitly] 
+    public void WinConditionOff()
+    {
+        isWinCondition = false;
+    }
+    
+    public void WinConditionOn()
+    {
+        isWinCondition = true;
+    }
     public void ChangeLevel()
     {
-        switch (_levelNumber)
-        {
-            case 1:
-            {
-                _gameController.ChildrenDelete(_currentLevel);
-                _cellsCurrentLevel.MediumLevel(_sprites);
-                _levelSettings.NextLevelSetting();   // Как внутри этого метода вызывать нужный уровень по Дженерикам ???
-                StartCoroutine(CountDown());
-                break;
-            }
-            case 2:
-            {
-                isLastLevel = true;
-                _gameController.ChildrenDelete(_currentLevel);
-                _cellsCurrentLevel.HardLevel(_sprites);
-                _levelSettings.NextLevelSetting();
-                StartCoroutine(CountDown());
-                break;
-            }
-            default: return;
-        }
+        _levelSettings.NextLevelSettings(_levelDifficulty, _levelNumber, _sprites, CountDown());
     }
     
     IEnumerator CountDown()
     {
         yield return new WaitForSeconds(5);
-        foreach (var cel in _cellsCurrentLevel.Cels)
+        foreach (var cel in _scriptableObject.Cells)
         {
            
             var sprite = cel.GetComponentInChildren<SpriteRenderer>();   // как сделать по - другому ?

@@ -1,95 +1,27 @@
-using System.Collections.Generic;
-using System.Linq;
-using DG.Tweening;
 using JetBrains.Annotations;
-using OpenAI;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
   public UnityEvent PlayMode;
   
-  [SerializeField] private ModeSelection _modeSelection;
-  [SerializeField] private ScriptableObject _scriptableObject;
-  [SerializeField] private StateMachine _stateMachine;
-  [SerializeField] private SetSelctionState _setSelctionState;
   [SerializeField] private GameState _gameState;
-  [SerializeField] private SymbolsSetView _symbolsSetView;
-  [SerializeField] private Canvas _setSelection;
+  
   [SerializeField] private Canvas _startScreen;
   [SerializeField] private Canvas _standartScreen;
+  
   [SerializeField] private BoxCollider _currentLevelCollider;
+  
+  [SerializeField] private CellController cellController;
   
   [SerializeField] public GameObject _nextLevelbutton;
   [SerializeField] public GameObject _restartButton;
-  [SerializeField] private GameObject _setSelectionObject;
-  [SerializeField] private GameObject _cell;
   [SerializeField] private GameObject _currentLevel;
   
-  public IReadOnlyList<Sprite> Icons => _icons;
-  public bool isGameActive = false;
- 
-  
-  private List<Sprite> _icons = new List<Sprite>();
-  private List<Sprite> _gameObjects = new List<Sprite>();
-
-  private void Start()
-  {
-    // _stateMachine = new StateMachine(_setSelctionState, _gameState);
-    // _stateMachine.Enter<SetSelctionState, ModeSelection>( _modeSelection);
-  }
-
-  public void SetSelection()
-  {
-    for (var i = 0; i < _icons.Count; i++)
-    {
-      var cell = Instantiate(_cell, _setSelection.transform);
-      var setView = Instantiate(_symbolsSetView, cell.transform);
-      setView.Initialize(_scriptableObject.AllObjects[i].First(), _scriptableObject.AllObjectsNames[i]);
-      setView.name = _scriptableObject.AllObjectsNames[i];
-    }
-  }
-  
- 
-  
-
-  // public void ObjectsSelection(string name)
-  // {
-  //   switch (name)
-  //   {
-  //     case "Mystery":
-  //     {
-  //       StartGame(_scriptableObject.Mystery);
-  //       break;
-  //     }
-  //     case "Animals":
-  //     {
-  //       StartGame(_scriptableObject.Animals);
-  //       break;
-  //     }
-  //     case "Food":
-  //     {
-  //       StartGame(_scriptableObject.Food);
-  //       break;
-  //     }
-  //     default: return;
-  //   }
-  // }
-
-  // private void StartGame(IReadOnlyList<Sprite> sprites)
-  // {
-  //   _setSelectionObject.SetActive(false);
-  //   _gameState.Array(sprites);
-  //   _stateMachine.Enter<GameState>();
-  //   PlayMode.Invoke();
-  //   isGameActive = true;
-  //
-  // }
+  [SerializeField] private AudioSource _win;
+  [SerializeField] private AudioSource _fail;
 
   [UsedImplicitly]
   public void StandartSprites()
@@ -97,12 +29,7 @@ public class GameController : MonoBehaviour
     _startScreen.enabled = false;
     _standartScreen.enabled = true;
   }
-
-  // public void DalleStartGame()
-  // {
-  //   StartGame(_scriptableObject.DalleImages);
-  // }
-
+  
   [UsedImplicitly]
   public void ChildrenDelete(GameObject gameObject)
   {
@@ -113,15 +40,23 @@ public class GameController : MonoBehaviour
       Destroy(child.gameObject);
     }
   }
-
-  public void AddStartIcons()
+  
+  public void RightSelection(Transform localScale, SpriteRenderer spriteRenderer, GameObject cell)
   {
-    for (int i = 0; i < _scriptableObject.AllObjects.Count; i++)
-    {
-      _icons.Add(_scriptableObject.AllObjects[i].First()); 
-    }
+    _win.Play();
+    _gameState.WinConditionOn();
+    var scale =localScale.transform.localScale;
+    cellController.ShowIcon(spriteRenderer,_gameState.isWinCondition);
+    cellController.ScaleEffect(cell,scale);
+    _gameState.ChangeLevelNumber();
   }
 
+  public void WrongSelection(SpriteRenderer spriteRenderer)
+  {
+    _fail.Play();
+    cellController.ShowIcon(spriteRenderer,_gameState.isWinCondition);
+  }
+  
   [UsedImplicitly]
   public void RestartScene()
   {

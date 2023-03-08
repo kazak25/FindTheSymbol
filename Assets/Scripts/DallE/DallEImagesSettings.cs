@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using OpenAI;
@@ -9,7 +10,7 @@ public class DallEImagesSettings : MonoBehaviour
     [SerializeField] private ScriptableObject _dalleImagesList;
     [SerializeField] private GameObject _currentLevel;
     [SerializeField] private BoxCollider _currentLevelCollider;
-    
+
     public Sprite ImageSettings(UnityWebRequest request)
     {
         Texture2D texture = new Texture2D(1, 1);

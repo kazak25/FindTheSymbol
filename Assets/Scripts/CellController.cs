@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class CellRotationController : MonoBehaviour
+public class CellController : MonoBehaviour
 {
     public void ShowIcon(SpriteRenderer sprite,bool isRightSprite)
     {
@@ -17,15 +17,11 @@ public class CellRotationController : MonoBehaviour
                 OnComplete(() => sprite.DOColor(Color.clear, 2));
         }
     }
-    // Start is called before the first frame update
-    void Start()
+    public void ScaleEffect(GameObject gameObject,Vector3 scale)
     {
+        gameObject.transform.DOScale(new Vector3(1.5f, 1.5f, 0), 1f).OnComplete(() =>
+            gameObject.transform.DOScale(scale, 1f));
         
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

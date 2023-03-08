@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -9,12 +7,12 @@ public class ModeSelection : MonoBehaviour
 {
     public UnityEvent PlayMode;
     
-    [SerializeField] private GameObject _setSelectionObject;
-    
     [SerializeField] private ScriptableObject _scriptableObject;
     [SerializeField] private GameState _gameState;
     [SerializeField] private StateMachine _stateMachine;
     [SerializeField] private SetSelctionState _setSelctionState;
+    
+    [SerializeField] private GameObject _setSelectionObject;
     
     public bool isGameActive = false;
 

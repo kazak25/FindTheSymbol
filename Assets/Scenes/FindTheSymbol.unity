@@ -293,9 +293,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 956007452}
-        m_TargetAssemblyTypeName: CheckHit, Assembly-CSharp
-        m_MethodName: WinCondition
+      - m_Target: {fileID: 956007447}
+        m_TargetAssemblyTypeName: GameState, Assembly-CSharp
+        m_MethodName: WinConditionOff
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2043,6 +2043,7 @@ GameObject:
   - component: {fileID: 956007454}
   - component: {fileID: 956007455}
   - component: {fileID: 956007456}
+  - component: {fileID: 956007458}
   m_Layer: 5
   m_Name: Parallax Map
   m_TagString: Untagged
@@ -2210,6 +2211,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d295f863c0e4e144bb7e3039a8801993, type: 3}
   _dalleImages: []
   _icons: []
+  _cells: []
 --- !u!114 &956007445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2255,13 +2257,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b181f5090ef7e5945867d58727280083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cellsCurrentLevel: {fileID: 956007449}
-  _currentLevel: {fileID: 1137344093}
+  _levelDifficulty: {fileID: 956007458}
+  _scriptableObject: {fileID: 956007444}
   _gameController: {fileID: 956007453}
   _levelSettings: {fileID: 956007448}
-  _waitingTime: 2
-  _levelNumber: 0
-  isWinCondition: 0
+  _currentLevel: {fileID: 1137344093}
   isLastLevel: 0
 --- !u!114 &956007448
 MonoBehaviour:
@@ -2275,10 +2275,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b668ab56b0a105442b25bf02281f9e55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nextLevelbutton: {fileID: 662529850}
   _gameController: {fileID: 956007453}
-  _currentLevel: {fileID: 1137344093}
-  _levelDifficult: {fileID: 956007449}
+  _gameState: {fileID: 956007447}
+  _currentLevelCollider: {fileID: -4974506490546197702, guid: a3dade0d2328a8a4ca69ada9ff64aae0, type: 3}
+  _currentLevel: {fileID: 3913363062957192269, guid: a3dade0d2328a8a4ca69ada9ff64aae0, type: 3}
+  _spawner: {fileID: 1137344093}
+  _nextLevelbutton: {fileID: 662529850}
   columnsCount: 0
   "elements\u0421ountPerLine": 0
   startPositionX: 0
@@ -2297,13 +2299,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a44b82f4cf56f4e9c6512b943f7f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameController: {fileID: 956007453}
   _taskSelection: {fileID: 956007451}
   _levelSettings: {fileID: 956007448}
   _getRandom: {fileID: 956007445}
   _symbolsSetView: {fileID: 3838780372143851785, guid: a3dade0d2328a8a4ca69ada9ff64aae0, type: 3}
-  _cell: {fileID: 2410580740573660120, guid: d38b16b5cd1b2594f959e4e9f7b468e9, type: 3}
+  _scriptableObject: {fileID: 956007444}
   _currentLevel: {fileID: 1137344094}
+  _cell: {fileID: 2410580740573660120, guid: d38b16b5cd1b2594f959e4e9f7b468e9, type: 3}
 --- !u!114 &956007450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2331,7 +2333,6 @@ MonoBehaviour:
   _text: {fileID: 231467921}
   _dalleImage: {fileID: 1541228613}
   _showImage: {fileID: 282298722}
-  _checkHit: {fileID: 956007452}
 --- !u!114 &956007452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2344,12 +2345,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 519f2fbd586987642899d7a40f331f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cellRotationController: {fileID: 956007443}
   _gameController: {fileID: 956007453}
   _gameState: {fileID: 956007447}
   _gameMode: {fileID: 956007451}
-  _win: {fileID: 956007456}
-  _fail: {fileID: 956007455}
   _taskSelection: {fileID: 956007451}
   _dalleImage: {fileID: 1541228613}
   _modeSelection: {fileID: 956007457}
@@ -2380,22 +2378,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _modeSelection: {fileID: 956007457}
-  _scriptableObject: {fileID: 956007444}
-  _stateMachine: {fileID: 956007450}
-  _setSelctionState: {fileID: 956007446}
   _gameState: {fileID: 956007447}
-  _symbolsSetView: {fileID: 3838780372143851785, guid: 1b740ce079be67a4796c9b9d97f67bd1, type: 3}
-  _setSelection: {fileID: 2068263211}
   _startScreen: {fileID: 1891378078}
   _standartScreen: {fileID: 1266187603}
   _currentLevelCollider: {fileID: -4974506490546197702, guid: a3dade0d2328a8a4ca69ada9ff64aae0, type: 3}
+  cellController: {fileID: 956007443}
   _nextLevelbutton: {fileID: 662529850}
   _restartButton: {fileID: 1495831703}
-  _setSelectionObject: {fileID: 1685139064}
-  _cell: {fileID: 2410580740573660120, guid: 4705527f987f07d41b027e1b6efd58ac, type: 3}
   _currentLevel: {fileID: 3913363062957192269, guid: a3dade0d2328a8a4ca69ada9ff64aae0, type: 3}
-  isGameActive: 0
+  _win: {fileID: 956007456}
+  _fail: {fileID: 956007455}
 --- !u!114 &956007454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2630,12 +2622,26 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _setSelectionObject: {fileID: 1685139064}
   _scriptableObject: {fileID: 956007444}
   _gameState: {fileID: 956007447}
   _stateMachine: {fileID: 956007450}
   _setSelctionState: {fileID: 956007446}
+  _setSelectionObject: {fileID: 1685139064}
   isGameActive: 0
+--- !u!114 &956007458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956007438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a31a4e335349248be8b2f03c1cf5ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelSettings: {fileID: 956007448}
+  _cellsSpawner: {fileID: 956007449}
 --- !u!1 &1027466287
 GameObject:
   m_ObjectHideFlags: 0
@@ -3194,7 +3200,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 956007451}
         m_TargetAssemblyTypeName: TaskSelection, Assembly-CSharp
-        m_MethodName: ListNameClear
+        m_MethodName: ListClear
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

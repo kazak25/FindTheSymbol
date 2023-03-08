@@ -5,15 +5,14 @@ using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Color = System.Drawing.Color;
 using Random = UnityEngine.Random;
 
 public class TaskSelection : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Image _dalleImage;
+    
     [SerializeField] private GameObject _showImage;
-    [SerializeField] private CheckHit _checkHit;
     
     public bool _isCountDown { get; private set; }
     public string tempName { get ; private set; }
@@ -24,7 +23,7 @@ public class TaskSelection : MonoBehaviour
     private List<Sprite> _tempDalleSprites = new List<Sprite>();
     private TextMeshPro _textName;
     private bool isDalleImage = false;
-    private int _waitingTime = 5;
+    private int _waitingTime = 3;
     
    
     [UsedImplicitly]
@@ -32,8 +31,9 @@ public class TaskSelection : MonoBehaviour
     {
         StartCoroutine(CountDown());
     }
-
-    public void ListNameClear()
+    
+    [UsedImplicitly]
+    public void ListClear()
     {
         
         _spritesNames?.Clear();
@@ -77,7 +77,6 @@ public class TaskSelection : MonoBehaviour
         yield return new WaitForSeconds(2f);
         
         var randomIndex = GetRandomName();
-        Debug.Log(_spritesNames.Count);
         tempSprite = _sprites[randomIndex];
         tempName = _sprites[randomIndex].name;
 
@@ -90,18 +89,15 @@ public class TaskSelection : MonoBehaviour
         _tempDalleSprites.Add(tempSprite);
         _spritesNames.Add(tempName);
        
-        UnityEngine.Color tempColor = Random.ColorHSV();
+        Color tempColor = Random.ColorHSV();
         _text.color = tempColor;
         _text.text = "Find "+ tempName;
         _dalleImage.sprite = tempSprite;
         if (isDalleImage)
         { 
             _showImage.SetActive(true);
-            //_dalleImage.enabled = true;
             _dalleImage.sprite = tempSprite;
-            //_checkHit.Initialize(_dalleImage.sprite);
         }
-        
         _isCountDown = false;
     }
 }

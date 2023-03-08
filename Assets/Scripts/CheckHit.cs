@@ -1,23 +1,23 @@
 using System.Collections;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 
 public class CheckHit : MonoBehaviour
 {
-    [SerializeField] private CellRotationController _cellRotationController;
+    
     [SerializeField] private GameController _gameController;
     
     [SerializeField] private GameState _gameState;
     
     [SerializeField] private TaskSelection _gameMode;
     
-    [SerializeField] private AudioSource _win;
-    [SerializeField] private AudioSource _fail;
-    
     [SerializeField] private TaskSelection _taskSelection;
+    
     [SerializeField] private Image _dalleImage;
+    
     [SerializeField] private ModeSelection _modeSelection;
    
     private void Update()
@@ -34,7 +34,6 @@ public class CheckHit : MonoBehaviour
         {
             return;
         }
-
         if (_taskSelection._isCountDown)
         {
             return;
@@ -51,45 +50,26 @@ public class CheckHit : MonoBehaviour
             
             if (_modeSelection.isGameActive &&  spriteRenderer.sprite == _dalleImage.sprite)
             {
-                _win.Play();
-                _gameState.isWinCondition = true;
-                var scale = hit.collider.gameObject.transform.localScale;
-                _cellRotationController.ShowIcon(spriteRenderer,_gameState.isWinCondition);
-                ScaleEffect(hit.collider.gameObject,scale);
-                _gameState._levelNumber++;
-                
+                _gameController.RightSelection(hit.collider.gameObject.transform, spriteRenderer,
+                    hit.collider.gameObject);
                 if (_gameState.isLastLevel)
                 {
                     StartCoroutine(ShowButtonRestart());
                     return;
                 }
-                
                 StartCoroutine(ShowButtonNextLevel());
             }
             
             if(_modeSelection.isGameActive && hit.collider.gameObject.name != _gameMode.tempName
                ||  spriteRenderer.sprite != _dalleImage.sprite)
             {
-                _fail.Play();
-                _cellRotationController.ShowIcon(spriteRenderer,_gameState.isWinCondition);
+                _gameController.WrongSelection(spriteRenderer);
             }
         }
     }
-
-    private void ScaleEffect(GameObject gameObject,Vector3 scale)
-    {
-        gameObject.transform.DOScale(new Vector3(1.5f, 1.5f, 0), 1f).OnComplete(() =>
-          gameObject.transform.DOScale(scale, 1f));
-        
-    }
     
-    public void WinCondition()
-    {
-        _gameState.isWinCondition = false;
-    }
-
-    IEnumerator ShowButtonNextLevel()
-    {
+    IEnumerator ShowButtonNextLevel()   //перенести в скрипт для  UI элементов
+     {
         yield return new WaitForSeconds(2);
         _gameController._nextLevelbutton.SetActive(true);
     }

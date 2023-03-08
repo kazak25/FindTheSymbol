@@ -1,12 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ScriptableObject : MonoBehaviour
 {
-    
     public IReadOnlyList<Sprite> Mystery => _mystery;
     public IReadOnlyList<Sprite> Animals => _animals;
     public IReadOnlyList<Sprite> Food => _food;
@@ -14,11 +10,14 @@ public class ScriptableObject : MonoBehaviour
     public IReadOnlyList<List<Sprite>> AllObjects => _allObjects;
     public IReadOnlyList<string> AllObjectsNames => _allObjectsNames;
     public IReadOnlyList<Sprite> Icons => _icons;
+    public IReadOnlyList<GameObject> Cells => _cells;
+    
     [SerializeField] private List<Sprite> _mystery;
     [SerializeField] private List<Sprite> _animals;
     [SerializeField] private List<Sprite> _food;
     [SerializeField] public List<Sprite> _dalleImages;
-    [SerializeField] public List<Sprite> _icons = new List<Sprite>();
+    [SerializeField] public List<Sprite> _icons;
+    public List<GameObject> _cells;
     
     private readonly List<List<Sprite>>_allObjects = new List<List<Sprite>>();
     private readonly List<string> _allObjectsNames = new List<string>();
@@ -31,6 +30,11 @@ public class ScriptableObject : MonoBehaviour
         _allObjectsNames.Add("Mystery");
         _allObjectsNames.Add("Animals");
         _allObjectsNames.Add("Food");
+    }
+
+    public void ListClear<T>(List<T> list)
+    {
+        list.Clear();
     }
 }
 
