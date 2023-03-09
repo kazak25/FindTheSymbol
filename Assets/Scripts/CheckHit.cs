@@ -2,11 +2,13 @@ using System.Collections;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 
 public class CheckHit : MonoBehaviour
 {
+    public UnityEvent _showNextButton;
     
     [SerializeField] private GameController _gameController;
     
@@ -19,6 +21,8 @@ public class CheckHit : MonoBehaviour
     [SerializeField] private Image _dalleImage;
     
     [SerializeField] private ModeSelection _modeSelection;
+
+    [SerializeField] private GameOverState _gameOverState;
    
     private void Update()
     {
@@ -30,15 +34,11 @@ public class CheckHit : MonoBehaviour
     
     private void Raycast()
     {
-        if (_gameState.isWinCondition)
+        if (_gameState.isWinCondition || _taskSelection._isCountDown )
         {
             return;
         }
-        if (_taskSelection._isCountDown)
-        {
-            return;
-        }
-
+        
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         
@@ -54,10 +54,11 @@ public class CheckHit : MonoBehaviour
                     hit.collider.gameObject);
                 if (_gameState.isLastLevel)
                 {
-                    StartCoroutine(ShowButtonRestart());
+                    _gameOverState.Enter();
                     return;
                 }
-                StartCoroutine(ShowButtonNextLevel());
+                
+                _showNextButton.Invoke();
             }
             
             if(_modeSelection.isGameActive && hit.collider.gameObject.name != _gameMode.tempName
@@ -66,16 +67,5 @@ public class CheckHit : MonoBehaviour
                 _gameController.WrongSelection(spriteRenderer);
             }
         }
-    }
-    
-    IEnumerator ShowButtonNextLevel()   //перенести в скрипт для  UI элементов
-     {
-        yield return new WaitForSeconds(2);
-        _gameController._nextLevelbutton.SetActive(true);
-    }
-    IEnumerator ShowButtonRestart()
-    {
-        yield return new WaitForSeconds(2);
-        _gameController._restartButton.SetActive(true);
     }
 }

@@ -18,11 +18,11 @@ public class TaskSelection : MonoBehaviour
     public string tempName { get ; private set; }
     public Sprite tempSprite { get; private set; }
     
+    private bool isDalleImage = false;
     private IReadOnlyList<Sprite> _sprites = new List<Sprite>();
     private  List<String> _spritesNames = new List<string>();
     private List<Sprite> _tempDalleSprites = new List<Sprite>();
     private TextMeshPro _textName;
-    private bool isDalleImage = false;
     private int _waitingTime = 3;
     
    
@@ -35,10 +35,8 @@ public class TaskSelection : MonoBehaviour
     [UsedImplicitly]
     public void ListClear()
     {
-        
         _spritesNames?.Clear();
         _tempDalleSprites?.Clear();
-        
     }
 
     private int GetRandomName()
@@ -55,7 +53,7 @@ public class TaskSelection : MonoBehaviour
     {
         isDalleImage = true;
     }
-    public IEnumerator  CountDown()
+    public IEnumerator CountDown()
     {
         _showImage.SetActive(false);
         if (_dalleImage.sprite != null)
@@ -63,18 +61,7 @@ public class TaskSelection : MonoBehaviour
             _dalleImage.sprite = null;
         }
         _isCountDown = true;
-        var tempTime = _waitingTime;
-        while (tempTime > 0)
-        {
-
-            _text.text = tempTime.ToString();
-        
-            yield return new WaitForSeconds(1f); 
-        
-            tempTime--; 
-        }
-        _text.text = "GO!";
-        yield return new WaitForSeconds(2f);
+       yield return Timer();
         
         var randomIndex = GetRandomName();
         tempSprite = _sprites[randomIndex];
@@ -89,6 +76,12 @@ public class TaskSelection : MonoBehaviour
         _tempDalleSprites.Add(tempSprite);
         _spritesNames.Add(tempName);
        
+        DisplayFieldSettings();
+        _isCountDown = false;
+    }
+
+    private void DisplayFieldSettings()
+    {
         Color tempColor = Random.ColorHSV();
         _text.color = tempColor;
         _text.text = "Find "+ tempName;
@@ -98,6 +91,22 @@ public class TaskSelection : MonoBehaviour
             _showImage.SetActive(true);
             _dalleImage.sprite = tempSprite;
         }
-        _isCountDown = false;
     }
+
+    private IEnumerator Timer()
+    {
+        var tempTime = _waitingTime;
+        while (tempTime > 0)
+        {
+
+            _text.text = tempTime.ToString();
+        
+            yield return new WaitForSeconds(1f); 
+        
+            tempTime--; 
+        }
+        _text.text = "GO!";
+        yield return new WaitForSeconds(3f);
+    }
+    
 }
