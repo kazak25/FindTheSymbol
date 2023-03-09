@@ -24,4 +24,5 @@ public class GetRandom : MonoBehaviour
         newSprites = tempSprites;
         return newSprites;
     }
+   
 }

@@ -56,13 +56,5 @@ public class GameController : MonoBehaviour
     _fail.Play();
     cellController.ShowIcon(spriteRenderer,_gameState.isWinCondition);
   }
-  
-  [UsedImplicitly]
-  public void RestartScene()
-  {
-    SceneManager.LoadSceneAsync(GlobalConstants.SceneGame);
-    _currentLevel.transform.localScale = new Vector3(35f, 35f, 0);
-    _currentLevelCollider.size = new Vector3(5, 5, 0);
-  }
 }
   

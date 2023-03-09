@@ -11,6 +11,7 @@ public class ModeSelection : MonoBehaviour
     [SerializeField] private GameState _gameState;
     [SerializeField] private StateMachine _stateMachine;
     [SerializeField] private SetSelctionState _setSelctionState;
+    [SerializeField] private GameOverState _gameOverState;
     
     [SerializeField] private GameObject _setSelectionObject;
     
@@ -18,7 +19,7 @@ public class ModeSelection : MonoBehaviour
 
     private void Start()
     {
-        _stateMachine = new StateMachine(_setSelctionState, _gameState);
+        _stateMachine = new StateMachine(_setSelctionState, _gameState,_gameOverState);
         _stateMachine.Enter<SetSelctionState, ModeSelection>(this);
     }
 

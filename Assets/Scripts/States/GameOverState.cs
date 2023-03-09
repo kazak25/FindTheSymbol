@@ -1,27 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameOverState : MonoBehaviour,IStateWithoutContext
 {
+    [SerializeField] private GameObject _currentLevel;
+    [SerializeField] private BoxCollider _currentLevelCollider;
+    
+    public UnityEvent LastLevel;
+    
+    private StateMachine _stateMachine;
     public void Initialize(StateMachine stateMachine)
     {
-        throw new System.NotImplementedException();
+        _stateMachine = stateMachine;
     }
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+        RestartScene();
     }
 
     public void Enter()
     {
-        throw new System.NotImplementedException();
+        LastLevel.Invoke();
     }
-    
     public void RestartScene()
     {
         SceneManager.LoadSceneAsync(GlobalConstants.SceneGame);
+        _currentLevel.transform.localScale = new Vector3(35f, 35f, 0);
+        _currentLevelCollider.size = new Vector3(5, 5, 0);
     }
+   
 }
