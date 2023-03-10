@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 
 public class TaskSelection : MonoBehaviour
 {
+    [SerializeField] private GameObject _taskField;
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Image _dalleImage;
     
@@ -95,6 +96,7 @@ public class TaskSelection : MonoBehaviour
 
     private IEnumerator Timer()
     {
+        _taskField.SetActive(true);
         var tempTime = _waitingTime;
         while (tempTime > 0)
         {

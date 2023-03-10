@@ -23,6 +23,8 @@ public class CheckHit : MonoBehaviour
     [SerializeField] private ModeSelection _modeSelection;
 
     [SerializeField] private GameOverState _gameOverState;
+
+    [SerializeField] private ParticleSystem _stars;
    
     private void Update()
     {
@@ -52,6 +54,8 @@ public class CheckHit : MonoBehaviour
             {
                 _gameController.RightSelection(hit.collider.gameObject.transform, spriteRenderer,
                     hit.collider.gameObject);
+                var stars = Instantiate(_stars, hit.collider.gameObject.transform);
+                stars.Play();
                 if (_gameState.isLastLevel)
                 {
                     _gameOverState.Enter();

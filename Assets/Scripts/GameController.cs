@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour
     _gameState.WinConditionOn();
     var scale =localScale.transform.localScale;
     cellController.ShowIcon(spriteRenderer,_gameState.isWinCondition);
-    cellController.ScaleEffect(cell,scale);
+    // cellController.ScaleEffect(cell,scale);
     _gameState.ChangeLevelNumber();
   }
 
