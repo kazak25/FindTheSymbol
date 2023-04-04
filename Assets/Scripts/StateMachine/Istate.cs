@@ -1,6 +1,9 @@
-public interface Istate
+namespace StateMachine
 {
-    void Initialize(StateMachine stateMachine);
-    void Exit();
+    public interface Istate
+    {
+        void Initialize(StateMachine stateMachine);
+        void Exit();
+    }
 }
 

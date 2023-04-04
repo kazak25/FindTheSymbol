@@ -1,4 +1,7 @@
-public interface IStateWithoutContext : Istate
+namespace StateMachine
 {
-    void Enter();
+    public interface IStateWithoutContext : Istate
+    {
+        void Enter();
+    }
 }

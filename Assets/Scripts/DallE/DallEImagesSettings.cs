@@ -1,25 +1,28 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using OpenAI;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class DallEImagesSettings : MonoBehaviour
+namespace DallE
 {
-    [SerializeField] private ScriptableObject _dalleImagesList;
-    [SerializeField] private GameObject _currentLevel;
-    [SerializeField] private BoxCollider _currentLevelCollider;
-
-    public Sprite ImageSettings(UnityWebRequest request)
+    public class DallEImagesSettings : MonoBehaviour
     {
-        Texture2D texture = new Texture2D(1, 1);
-        texture.LoadImage(request.downloadHandler.data);
-        var sprite = Sprite.Create(texture, new Rect(0, 0, 512, 512), new Vector2(0.5f,0.5f), 1f);
-        _currentLevel.transform.localScale = new Vector3(0.35f, 0.35f, 0);
-        _currentLevelCollider.size = new Vector3(500, 500, 0);
-        _dalleImagesList._dalleImages.Add(sprite);
-        return sprite;
+        [SerializeField] private SpriteModels _dalleImagesList;
+        [SerializeField] private GameObject _currentLevel;
+        [SerializeField] private BoxCollider _currentLevelCollider;
+
+        private float _currentLevelScale = 0.35f;
+        private float _currentLevelColliderSize = 500;
+
+        public Sprite ImageSettings(UnityWebRequest request)
+        {
+            Texture2D texture = new Texture2D(1, 1);
+            texture.LoadImage(request.downloadHandler.data);
+            var sprite = Sprite.Create(texture, new Rect(0, 0, 512, 512), new Vector2(0.5f,0.5f), 1f);
+            _currentLevel.transform.localScale = new Vector3(_currentLevelScale, _currentLevelScale, 0);
+            _currentLevelCollider.size = new Vector3(_currentLevelColliderSize, _currentLevelColliderSize, 0);
+            _dalleImagesList._dalleImages.Add(sprite);
+            return sprite;
+        }
     }
 }
 
